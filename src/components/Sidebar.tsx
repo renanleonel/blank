@@ -1,15 +1,25 @@
 import {
-  Sidebar,
+  Sidebar as SidebarComponent,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from '@/components/ui/sidebar';
 
-export function AppSidebar() {
+type SidebarProps = {
+  items: {
+    label: string;
+    icon: string;
+    href: string;
+  }[];
+};
+
+export function Sidebar({ items }: SidebarProps) {
   return (
-    <Sidebar>
+    <SidebarComponent>
       <SidebarHeader>
         <div className='flex items-center gap-2 px-4 py-2'>
           <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'>
@@ -23,10 +33,18 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu></SidebarMenu>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.href}>{item.label}</a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-    </Sidebar>
+    </SidebarComponent>
   );
 }
