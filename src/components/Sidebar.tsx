@@ -8,6 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { Link } from '@tanstack/react-router';
 
 type SidebarProps = {
   items: {
@@ -22,9 +23,11 @@ export function Sidebar({ items }: SidebarProps) {
     <SidebarComponent>
       <SidebarHeader>
         <div className='flex items-center gap-2 px-4 py-2'>
-          <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'>
+          <Link
+            to='/'
+            className='flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'>
             <span className='text-sm font-bold'>b</span>
-          </div>
+          </Link>
           <div className='grid flex-1 text-left text-sm leading-tight'>
             <span className='truncate font-semibold'>blank</span>
           </div>
@@ -37,7 +40,7 @@ export function Sidebar({ items }: SidebarProps) {
               {items.map((item) => (
                 <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton asChild>
-                    <a href={item.href}>{item.label}</a>
+                    <Link to={item.href}>{item.label}</Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
