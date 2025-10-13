@@ -3,14 +3,7 @@ import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { Sidebar } from '@/components/sidebar';
 import { ToggleSidebar } from '@/components/toggle-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-
-const SIDEBAR_ITEMS = [
-  {
-    href: '/table',
-    icon: 'table',
-    label: 'Table',
-  },
-];
+import { SIDEBAR_ITEMS } from '@/lib/constants/sidebar-items';
 
 const RootLayout = () => (
   <SidebarProvider>
