@@ -16,12 +16,13 @@ type SidebarProps = {
     icon: string;
     href: string;
   }[];
+  className?: string;
 };
 
-export function Sidebar({ items }: SidebarProps) {
+export function Sidebar({ items, className }: SidebarProps) {
   return (
-    <SidebarComponent>
-      <SidebarHeader>
+    <SidebarComponent className={className}>
+      <SidebarHeader className='bg-[#F3F3F3]'>
         <div className='flex items-center gap-2 px-4 py-2'>
           <Link
             to='/'
@@ -33,7 +34,7 @@ export function Sidebar({ items }: SidebarProps) {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className='bg-[#F3F3F3]'>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
