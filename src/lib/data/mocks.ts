@@ -1,14 +1,4 @@
-export interface User {
-  id: string;
-  team: string;
-  organization: string;
-  accountType: 'company' | 'individual';
-  status: 'suspended' | 'active' | 'inactive';
-  phone: string;
-  timezone: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { User } from '@/lib/types/user';
 
 export const users: User[] = [
   {

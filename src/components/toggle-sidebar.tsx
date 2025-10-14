@@ -11,7 +11,7 @@ export const ToggleSidebar = () => {
         'fixed top-4 z-50 transition-all duration-100 ease-linear',
         state === 'expanded' ? 'left-[calc(var(--sidebar-width)+1rem)]' : 'left-4'
       )}>
-      <SidebarTrigger className='bg-white border border-gray-200 hover:bg-gray-50' />
+      <SidebarTrigger />
     </div>
   );
 };
