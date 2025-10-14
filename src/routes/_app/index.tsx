@@ -1,3 +1,5 @@
+import { UsersTable } from '@/components/users-table';
+import { users } from '@/lib/data/users';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/')({
@@ -5,5 +7,9 @@ export const Route = createFileRoute('/_app/')({
 });
 
 function Index() {
-  return <div>Home</div>;
+  return (
+    <div className='p-6 w-full h-full'>
+      <UsersTable data={users} isLoading={false} />
+    </div>
+  );
 }
