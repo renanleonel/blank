@@ -1,7 +1,7 @@
 import { UserAccountType, UserStatus } from '@/lib/constants/user';
 import { User } from '@/lib/types/user';
 
-const generateRandomUser = (id: number): User => {
+export const generateRandomUser = (id: number): User => {
   const teams = ['Engineering', 'Marketing', 'Design', 'Sales', 'Support', 'Product'];
 
   const organizations = [
