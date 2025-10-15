@@ -1,7 +1,7 @@
 import { VirtualizedTable } from '@/components/virtualized-table';
+import { User } from '@/containers/users/domain/schemas/user';
 import { useTableColumns } from '@/containers/users/hooks/use-table-columns';
 import { useListUsers } from '@/containers/users/queries/user-queries';
-import { User } from '@/lib/types/user';
 import { keepPreviousData } from '@tanstack/react-query';
 
 const FETCH_SIZE = 50;

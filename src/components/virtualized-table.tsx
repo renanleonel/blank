@@ -112,7 +112,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
       </div>
 
       <div
-        className='flex-1 overflow-auto h-[600px]'
+        className='flex-1 overflow-y-auto overflow-x-hidden h-[600px]'
         onScroll={(e) => fetchMoreOnBottomReached(e.currentTarget)}
         ref={tableContainerRef}>
         <table className='w-full grid'>

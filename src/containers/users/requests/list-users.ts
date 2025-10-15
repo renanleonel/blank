@@ -1,15 +1,7 @@
-import { generateRandomUser } from '@/lib/data/mocks';
-import { User } from '@/lib/types/user';
+import { generateRandomUser } from '@/containers/users/domain/mocks';
+import { User, UserApiResponse } from '@/containers/users/domain/schemas/user';
 
-export interface UserApiResponse {
-  data: User[];
-  meta: {
-    totalRowCount: number;
-    hasNextPage: boolean;
-  };
-}
-
-export const fetchUsers = async (start: number, size: number): Promise<UserApiResponse> => {
+export const listUsers = async (start: number, size: number): Promise<UserApiResponse> => {
   await new Promise((resolve) => setTimeout(resolve, 500));
 
   const users: User[] = [];

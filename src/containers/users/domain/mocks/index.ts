@@ -1,5 +1,6 @@
-import { UserAccountType, UserStatus } from '@/lib/constants/user';
-import { User } from '@/lib/types/user';
+import { UserAccountType } from '@/containers/users/domain/enums/user-account-type';
+import { UserStatus } from '@/containers/users/domain/enums/user-status';
+import { User } from '@/containers/users/domain/schemas/user';
 
 export const generateRandomUser = (id: number): User => {
   const teams = ['Engineering', 'Marketing', 'Design', 'Sales', 'Support', 'Product'];
@@ -22,9 +23,9 @@ export const generateRandomUser = (id: number): User => {
     'Epsilon Corp',
   ];
 
-  const accountTypes: UserAccountType[] = ['company', 'individual'];
+  const accountTypes: UserAccountType[] = [UserAccountType.COMPANY, UserAccountType.INDIVIDUAL];
 
-  const statuses: UserStatus[] = ['active', 'inactive', 'suspended'];
+  const statuses: UserStatus[] = [UserStatus.ACTIVE, UserStatus.INACTIVE, UserStatus.SUSPENDED];
 
   const timezones = [
     'America/New_York',
@@ -83,15 +84,3 @@ export const generateRandomUser = (id: number): User => {
     updatedAt: randomDate(),
   };
 };
-
-const generateUsers = (count: number): User[] => {
-  const users: User[] = [];
-
-  for (let i = 1; i <= count; i++) {
-    users.push(generateRandomUser(i));
-  }
-
-  return users;
-};
-
-export const users: User[] = generateUsers(200);

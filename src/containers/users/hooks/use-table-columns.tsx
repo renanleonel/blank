@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { User } from '@/lib/types/user';
+import { User } from '@/containers/users/domain/schemas/user';
 import { createColumnHelper } from '@tanstack/react-table';
 import { MoreVertical } from 'lucide-react';
 

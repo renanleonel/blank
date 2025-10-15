@@ -1,22 +1,13 @@
-import { fetchUsers, UserApiResponse } from '@/lib/data/api';
-import { User } from '@/lib/types/user';
+import {
+  ListUsersParams,
+  ListUsersQueryResult,
+  listUsersQueryResultSchema,
+  UserApiResponse,
+} from '@/containers/users/domain/schemas/user';
+import { UserRepository } from '@/containers/users/repositories/user';
 import type { UseInfiniteQueryOptions } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
-
-export type ListUsersParams = {
-  fetchSize?: number;
-  sorting?: Array<{ id: string; desc: boolean }>;
-};
-
-export type ListUsersQueryResult = {
-  list: User[];
-  pagination: {
-    totalRowCount: number;
-    hasNextPage: boolean;
-    totalFetched: number;
-  };
-};
 
 type ListUsersProps = {
   params: ListUsersParams;
@@ -27,15 +18,16 @@ type ListUsersProps = {
 };
 
 function useListUsers({ params, options }: ListUsersProps) {
-  const { fetchSize = 50, sorting = [] } = params;
-  const queryKey = ['users', sorting];
+  const queryKey = ['users', params];
 
   const query = useInfiniteQuery<UserApiResponse, AxiosError, ListUsersQueryResult>({
     queryKey,
     queryFn: async ({ pageParam = 0 }) => {
+      const { fetchSize = 50 } = params;
+
       const start = (pageParam as number) * fetchSize;
 
-      const response = await fetchUsers(start, fetchSize);
+      const response = await UserRepository.listUsers({ start, fetchSize });
 
       return response;
     },
@@ -45,7 +37,7 @@ function useListUsers({ params, options }: ListUsersProps) {
       const list = data.pages.flatMap((page) => page.data);
       const lastPage = data.pages[data.pages.length - 1];
 
-      return {
+      const formattedResponse = {
         list,
         pagination: {
           totalFetched: list.length,
@@ -53,6 +45,10 @@ function useListUsers({ params, options }: ListUsersProps) {
           hasNextPage: lastPage?.meta?.hasNextPage ?? false,
         },
       };
+
+      const parsedResponse = listUsersQueryResultSchema.parse(formattedResponse);
+
+      return parsedResponse;
     },
     retry: 2,
     refetchOnWindowFocus: false,
