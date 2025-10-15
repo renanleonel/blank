@@ -1,114 +1,97 @@
+import { UserAccountType, UserStatus } from '@/lib/constants/user';
 import { User } from '@/lib/types/user';
 
-export const users: User[] = [
-  {
-    id: '1',
-    team: 'Engineering',
-    organization: 'Skiles-Osinski',
-    accountType: 'company',
-    status: 'suspended',
-    phone: '507-296-7199',
-    timezone: 'America/Moncton',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '2',
-    team: 'Marketing',
-    organization: 'Ernser-Streich',
-    accountType: 'individual',
-    status: 'active',
-    phone: '820.968.5268',
-    timezone: 'Europe/Malta',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '3',
-    team: 'Design',
-    organization: 'Kshlerin LLC',
-    accountType: 'company',
-    status: 'inactive',
-    phone: '1-334-566-5763',
-    timezone: 'Atlantic/South_Georgia',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '4',
-    team: 'Engineering',
-    organization: 'Considine LLC',
-    accountType: 'individual',
-    status: 'active',
-    phone: '+1 (248) 315-0295',
-    timezone: 'Atlantic/Stanley',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '5',
-    team: 'Marketing',
-    organization: 'Romaguera, Pacocha and Konopelski',
-    accountType: 'company',
-    status: 'suspended',
-    phone: '502.384.6216',
-    timezone: 'America/Thule',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '6',
-    team: 'Design',
-    organization: 'Witting Group',
-    accountType: 'individual',
-    status: 'active',
-    phone: '+1-312-939-2551',
-    timezone: 'Pacific/Saipan',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '7',
-    team: 'Engineering',
-    organization: 'Cremin, Ebert and Wilderman',
-    accountType: 'company',
-    status: 'inactive',
-    phone: '(580) 233-2008',
-    timezone: 'UTC',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '8',
-    team: 'Marketing',
-    organization: 'Hintz Group',
-    accountType: 'individual',
-    status: 'active',
-    phone: '+1-854-923-6526',
-    timezone: 'Europe/Lisbon',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '9',
-    team: 'Design',
-    organization: 'Kuvalis-White',
-    accountType: 'company',
-    status: 'suspended',
-    phone: '+1.225.384.5758',
-    timezone: 'Pacific/Efate',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-  {
-    id: '10',
-    team: 'Engineering',
-    organization: 'Schuster-Block',
-    accountType: 'individual',
-    status: 'active',
-    phone: '+1.435.366.1642',
-    timezone: 'America/Argentina/San_Luis',
-    createdAt: '20 Jul 2020',
-    updatedAt: '20 Jul 2020',
-  },
-];
+const generateRandomUser = (id: number): User => {
+  const teams = ['Engineering', 'Marketing', 'Design', 'Sales', 'Support', 'Product'];
+
+  const organizations = [
+    'TechCorp Inc',
+    'DataFlow LLC',
+    'CloudSync Group',
+    'InnovateLab',
+    'NextGen Solutions',
+    'Digital Dynamics',
+    'Future Systems',
+    'SmartTech Co',
+    'CyberCore',
+    'Quantum Labs',
+    'Alpha Industries',
+    'Beta Ventures',
+    'Gamma Technologies',
+    'Delta Solutions',
+    'Epsilon Corp',
+  ];
+
+  const accountTypes: UserAccountType[] = ['company', 'individual'];
+
+  const statuses: UserStatus[] = ['active', 'inactive', 'suspended'];
+
+  const timezones = [
+    'America/New_York',
+    'America/Los_Angeles',
+    'Europe/London',
+    'Europe/Paris',
+    'Asia/Tokyo',
+    'Asia/Shanghai',
+    'Australia/Sydney',
+    'America/Chicago',
+    'Europe/Berlin',
+    'America/Toronto',
+    'Pacific/Auckland',
+    'Asia/Dubai',
+  ];
+
+  const phoneFormats = [
+    () =>
+      `${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 900) + 100}-${
+        Math.floor(Math.random() * 9000) + 1000
+      }`,
+    () =>
+      `+1 (${Math.floor(Math.random() * 900) + 100}) ${Math.floor(Math.random() * 900) + 100}-${
+        Math.floor(Math.random() * 9000) + 1000
+      }`,
+    () =>
+      `+1-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 900) + 100}-${
+        Math.floor(Math.random() * 9000) + 1000
+      }`,
+    () =>
+      `(${Math.floor(Math.random() * 900) + 100}) ${Math.floor(Math.random() * 900) + 100}-${
+        Math.floor(Math.random() * 9000) + 1000
+      }`,
+    () =>
+      `+1.${Math.floor(Math.random() * 900) + 100}.${Math.floor(Math.random() * 900) + 100}.${
+        Math.floor(Math.random() * 9000) + 1000
+      }`,
+  ];
+
+  const randomDate = () => {
+    const start = new Date(2020, 0, 1);
+    const end = new Date(2024, 11, 31);
+    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  };
+
+  return {
+    id: id.toString(),
+    team: teams[Math.floor(Math.random() * teams.length)],
+    organization: organizations[Math.floor(Math.random() * organizations.length)],
+    accountType: accountTypes[Math.floor(Math.random() * accountTypes.length)],
+    status: statuses[Math.floor(Math.random() * statuses.length)],
+    phone: phoneFormats[Math.floor(Math.random() * phoneFormats.length)](),
+    timezone: timezones[Math.floor(Math.random() * timezones.length)],
+    createdAt: randomDate(),
+    updatedAt: randomDate(),
+  };
+};
+
+const generateUsers = (count: number): User[] => {
+  const users: User[] = [];
+
+  for (let i = 1; i <= count; i++) {
+    users.push(generateRandomUser(i));
+  }
+
+  return users;
+};
+
+export const users: User[] = generateUsers(200);
