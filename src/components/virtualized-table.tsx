@@ -1,6 +1,6 @@
-import { fetchUsers, UserApiResponse } from '@/lib/data/api';
+import { useListUsers } from '@/containers/users/queries/user-queries';
 import { cn } from '@/lib/utils';
-import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
+import { keepPreviousData } from '@tanstack/react-query';
 import {
   ColumnDef,
   flexRender,
@@ -26,22 +26,17 @@ export function VirtualizedTable<T>({ columns, fetchSize = 50 }: VirtualizedTabl
   const [sorting, setSorting] = useState<SortingState>([]);
 
   // React Query infinite query for paginated data
-  const { data, fetchNextPage, isFetching, isLoading } = useInfiniteQuery<UserApiResponse>({
-    queryKey: ['users', sorting], // Refetch when sorting changes
-    queryFn: async ({ pageParam = 0 }) => {
-      const start = (pageParam as number) * fetchSize;
-      return await fetchUsers(start, fetchSize);
-    },
-    initialPageParam: 0,
-    getNextPageParam: (_lastGroup, groups) => groups.length,
-    refetchOnWindowFocus: false,
-    placeholderData: keepPreviousData,
+  const listUsersQuery = useListUsers({
+    params: { fetchSize, sorting },
+    options: { placeholderData: keepPreviousData },
   });
 
-  // Flatten the array of arrays from the useInfiniteQuery hook
-  const flatData = useMemo(() => data?.pages?.flatMap((page) => page.data) ?? [], [data]);
-  const totalDBRowCount = data?.pages?.[0]?.meta?.totalRowCount ?? 0;
-  const totalFetched = flatData.length;
+  const { data, fetchNextPage, isFetching, isLoading } = listUsersQuery;
+
+  // Extract data from the query result
+  const flatData = useMemo(() => data?.list ?? [], [data]);
+  const totalDBRowCount = data?.pagination?.totalRowCount ?? 0;
+  const totalFetched = data?.pagination?.totalFetched ?? 0;
 
   // Called on scroll to fetch more data when user reaches bottom
   const fetchMoreOnBottomReached = useCallback(

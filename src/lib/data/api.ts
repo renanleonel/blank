@@ -1,5 +1,5 @@
+import { generateRandomUser } from '@/lib/data/mocks';
 import { User } from '@/lib/types/user';
-import { generateRandomUser } from './mocks';
 
 export interface UserApiResponse {
   data: User[];
