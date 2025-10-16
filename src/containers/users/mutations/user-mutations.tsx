@@ -21,6 +21,7 @@ function useDeleteUser({ options }: DeleteUserProps = {}) {
 
       return response;
     },
+    ...options,
     onSuccess: (...args) => {
       const [, deletedUserId] = args;
 
@@ -52,7 +53,6 @@ function useDeleteUser({ options }: DeleteUserProps = {}) {
     onError: (error) => {
       console.error('Failed to delete user:', error.message);
     },
-    ...options,
   });
 
   return mutation;
