@@ -42,3 +42,10 @@ export const listUsersQueryResultSchema = z.object({
 });
 
 export type ListUsersQueryResult = z.infer<typeof listUsersQueryResultSchema>;
+
+export const deleteUserResponseSchema = z.object({
+  success: z.boolean(),
+  message: z.string(),
+});
+
+export type DeleteUserResponse = z.infer<typeof deleteUserResponseSchema>;

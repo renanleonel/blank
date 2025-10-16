@@ -17,8 +17,10 @@ type ListUsersProps = {
   >;
 };
 
+export const LIST_USERS_QUERY_KEY = 'list-infinite-users';
+
 function useListUsers({ params, options }: ListUsersProps) {
-  const queryKey = ['users', params];
+  const queryKey = [LIST_USERS_QUERY_KEY, params];
 
   const query = useInfiniteQuery<UserApiResponse, AxiosError, ListUsersQueryResult>({
     queryKey,

@@ -23,9 +23,10 @@ const COLUMN_LABELS: Record<string, string> = {
 
 type HookProps = {
   isLoading: boolean;
+  onDeleteUser: (user: User) => void;
 };
 
-export function useTableColumns({ isLoading }: HookProps) {
+export function useTableColumns({ isLoading, onDeleteUser }: HookProps) {
   const columns = [
     columnHelper.accessor(COLUMN_KEYS.TEAM, {
       header: COLUMN_LABELS.TEAM,
@@ -97,16 +98,13 @@ export function useTableColumns({ isLoading }: HookProps) {
       size: 0.3,
       minSize: 20,
       maxSize: 20,
-      cell: () => {
+      cell: ({ row }) => {
         return isLoading ? (
           <Skeleton className='h-4 w-4' />
         ) : (
           <div className='flex justify-end'>
             <TableActions
-              actions={[
-                { label: 'Edit', onClick: () => {} },
-                { label: 'Delete', onClick: () => {} },
-              ]}
+              actions={[{ label: 'Delete', onClick: () => onDeleteUser(row.original) }]}
             />
           </div>
         );
