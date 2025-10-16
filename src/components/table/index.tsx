@@ -71,7 +71,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
       typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1
         ? (element) => element?.getBoundingClientRect().height
         : undefined,
-    overscan: 5,
+    overscan: 50,
   });
 
   useEffect(() => fetchMoreOnBottomReached(tableContainerRef.current), [fetchMoreOnBottomReached]);
@@ -107,7 +107,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
       </div>
 
       <div
-        className='flex-1 overflow-hidden h-[600px]'
+        className='flex-1 overflow-auto h-[600px]'
         onScroll={(e) => fetchMoreOnBottomReached(e.currentTarget)}
         ref={tableContainerRef}>
         <table className='w-full grid'>
@@ -128,7 +128,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
                     <td
                       key={cell.id}
                       className={cn(
-                        'py-4 flex whitespace-now nowrap text-sm text-gray-900',
+                        'py-4 flex whitespace-nowrap text-sm text-gray-900',
                         cellIndex === row.getVisibleCells().length - 1 ? 'px-0' : 'px-4'
                       )}
                       style={{
