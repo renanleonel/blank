@@ -1,4 +1,4 @@
-import { VirtualizedTable } from '@/components/virtualized-table';
+import { VirtualizedTable } from '@/components/table';
 import { User } from '@/containers/users/domain/schemas/user';
 import { useTableColumns } from '@/containers/users/hooks/use-table-columns';
 import { useListUsers } from '@/containers/users/queries/user-queries';

@@ -1,3 +1,4 @@
+import { SkeletonTable } from '@/components/table/skeleton-table';
 import { cn } from '@/lib/utils';
 import { UseInfiniteQueryResult } from '@tanstack/react-query';
 import { ColumnDef, flexRender, getCoreRowModel, Row, useReactTable } from '@tanstack/react-table';
@@ -75,13 +76,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
 
   useEffect(() => fetchMoreOnBottomReached(tableContainerRef.current), [fetchMoreOnBottomReached]);
 
-  if (isLoading) {
-    return (
-      <div className='flex items-center justify-center h-96'>
-        <div className='text-gray-500'>Loading...</div>
-      </div>
-    );
-  }
+  if (isLoading) return <SkeletonTable<T> table={table} />;
 
   return (
     <div className='rounded-lg border border-gray-200 h-full flex flex-col'>
@@ -112,7 +107,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
       </div>
 
       <div
-        className='flex-1 overflow-y-auto overflow-x-hidden h-[600px]'
+        className='flex-1 overflow-hidden h-[600px]'
         onScroll={(e) => fetchMoreOnBottomReached(e.currentTarget)}
         ref={tableContainerRef}>
         <table className='w-full grid'>
