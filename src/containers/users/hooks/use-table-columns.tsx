@@ -1,7 +1,7 @@
+import { TableActions } from '@/components/table/table-actions';
 import { Skeleton } from '@/components/ui/skeleton';
 import { User } from '@/containers/users/domain/schemas/user';
 import { createColumnHelper } from '@tanstack/react-table';
-import { MoreVertical } from 'lucide-react';
 
 const columnHelper = createColumnHelper<User>();
 
@@ -102,7 +102,12 @@ export function useTableColumns({ isLoading }: HookProps) {
           <Skeleton className='h-4 w-4' />
         ) : (
           <div className='flex justify-end'>
-            <MoreVertical className='h-4 w-4 text-gray-400 hover:text-gray-600 cursor-pointer' />
+            <TableActions
+              actions={[
+                { label: 'Edit', onClick: () => {} },
+                { label: 'Delete', onClick: () => {} },
+              ]}
+            />
           </div>
         );
       },
