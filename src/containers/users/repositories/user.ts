@@ -8,8 +8,6 @@ import { deleteUser } from '@/containers/users/requests/delete-user';
 import { listUsers } from '@/containers/users/requests/list-users';
 
 export class UserRepository {
-  private constructor() {}
-
   public static async listUsers(params: {
     start: number;
     fetchSize: number;
