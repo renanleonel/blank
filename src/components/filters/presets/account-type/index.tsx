@@ -30,6 +30,7 @@ export const AccountTypeFilter = () => {
   return (
     <FilterDropdown<UserAccountType>
       items={ACCOUNT_TYPES}
+      placeholder='Account Types'
       filteredItems={accountTypes}
       onFilterChange={onFilterChange}
     />

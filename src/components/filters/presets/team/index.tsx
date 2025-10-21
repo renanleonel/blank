@@ -40,6 +40,11 @@ export const TeamFilter = () => {
   };
 
   return (
-    <FilterDropdown<Team> items={TEAMS} filteredItems={teams} onFilterChange={onFilterChange} />
+    <FilterDropdown<Team>
+      items={TEAMS}
+      placeholder='Teams'
+      filteredItems={teams}
+      onFilterChange={onFilterChange}
+    />
   );
 };

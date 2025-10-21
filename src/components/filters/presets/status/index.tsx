@@ -34,6 +34,7 @@ export const StatusFilter = () => {
   return (
     <FilterDropdown<UserStatus>
       items={STATUS}
+      placeholder='Status'
       filteredItems={status}
       onFilterChange={onFilterChange}
     />

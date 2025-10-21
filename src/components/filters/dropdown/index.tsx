@@ -20,12 +20,14 @@ type Item<T> = {
 
 type FilterDropdownProps<T> = {
   items: Item<T>[];
+  placeholder: string;
   filteredItems: T[];
   onFilterChange: (nextSelected: T[]) => void;
 };
 
 export const FilterDropdown = <T,>({
   items,
+  placeholder,
   filteredItems,
   onFilterChange,
 }: FilterDropdownProps<T>) => {
@@ -55,7 +57,7 @@ export const FilterDropdown = <T,>({
     <DropdownMenu onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant='outline' className='flex items-center gap-2 cursor-pointer'>
-          <span>{firstItem ?? 'All'}</span>
+          <span>{firstItem ?? placeholder}</span>
 
           {filteredItems.length > 1 && (
             <span className='inline-flex tabular-nums items-center justify-center rounded-full bg-muted px-2 py-0.5 text-xs text-foreground/80'>
@@ -85,7 +87,7 @@ export const FilterDropdown = <T,>({
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-fit'>
+      <DropdownMenuContent className='w-fit' align='start'>
         {items.map((item) => {
           const isChecked = filteredItems.includes(item.value);
 
