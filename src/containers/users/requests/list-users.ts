@@ -1,9 +1,12 @@
-import { generateRandomUser } from '@/containers/users/domain/mocks';
-import { User, UserApiResponse } from '@/containers/users/domain/schemas/user';
+import { generateRandomUser } from "@/containers/users/domain/mocks";
+import { User, UserApiResponse } from "@/containers/users/domain/schemas/user";
 
 const deletedUserIds = new Set<string>();
 
-export const listUsers = async (start: number, size: number): Promise<UserApiResponse> => {
+export const listUsers = async (
+  start: number,
+  size: number,
+): Promise<UserApiResponse> => {
   await new Promise((resolve) => setTimeout(resolve, 500));
 
   const users: User[] = [];

@@ -1,12 +1,12 @@
-import { FilterToolbar } from '@/components/filters/toolbar';
-import { VirtualizedTable } from '@/components/table';
-import { DeleteUserDialog } from '@/containers/users/components/delete-user-dialog/index';
-import { User } from '@/containers/users/domain/schemas/user';
-import { useTableColumns } from '@/containers/users/hooks/use-table-columns';
-import { useDeleteUser } from '@/containers/users/mutations/user-mutations';
-import { useListUsers } from '@/containers/users/queries/user-queries';
-import { keepPreviousData } from '@tanstack/react-query';
-import { useState } from 'react';
+import { FilterToolbar } from "@/components/filters/toolbar";
+import { VirtualizedTable } from "@/components/table";
+import { DeleteUserDialog } from "@/containers/users/components/delete-user-dialog/index";
+import { User } from "@/containers/users/domain/schemas/user";
+import { useTableColumns } from "@/containers/users/hooks/use-table-columns";
+import { useDeleteUser } from "@/containers/users/mutations/user-mutations";
+import { useListUsers } from "@/containers/users/queries/user-queries";
+import { keepPreviousData } from "@tanstack/react-query";
+import { useState } from "react";
 
 const FETCH_SIZE = 50;
 
@@ -45,10 +45,10 @@ export function UsersTable() {
   });
 
   return (
-    <div className='flex flex-col gap-4 h-full w-full'>
+    <div className="flex flex-col gap-4 h-full w-full">
       <FilterToolbar />
 
-      <div className='min-h-0'>
+      <div className="min-h-0">
         <VirtualizedTable<User> columns={columns} query={listUsersQuery} />
       </div>
 

@@ -3,9 +3,9 @@ import {
   deleteUserResponseSchema,
   UserApiResponse,
   userApiResponseSchema,
-} from '@/containers/users/domain/schemas/user';
-import { deleteUser } from '@/containers/users/requests/delete-user';
-import { listUsers } from '@/containers/users/requests/list-users';
+} from "@/containers/users/domain/schemas/user";
+import { deleteUser } from "@/containers/users/requests/delete-user";
+import { listUsers } from "@/containers/users/requests/list-users";
 
 export class UserRepository {
   public static async listUsers(params: {

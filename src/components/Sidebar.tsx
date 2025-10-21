@@ -7,8 +7,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { Link } from '@tanstack/react-router';
+} from "@/components/ui/sidebar";
+import { Link } from "@tanstack/react-router";
 
 type SidebarProps = {
   items: {
@@ -22,19 +22,20 @@ type SidebarProps = {
 export function Sidebar({ items, className }: SidebarProps) {
   return (
     <SidebarComponent className={className}>
-      <SidebarHeader className='bg-[#F3F3F3]'>
-        <div className='flex items-center gap-2 px-4 py-2'>
+      <SidebarHeader className="bg-[#F3F3F3]">
+        <div className="flex items-center gap-2 px-4 py-2">
           <Link
-            to='/'
-            className='flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'>
-            <span className='text-sm font-bold'>b</span>
+            to="/"
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
+          >
+            <span className="text-sm font-bold">b</span>
           </Link>
-          <div className='grid flex-1 text-left text-sm leading-tight'>
-            <span className='truncate font-semibold'>blank</span>
+          <div className="grid flex-1 text-left text-sm leading-tight">
+            <span className="truncate font-semibold">blank</span>
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className='bg-[#F3F3F3]'>
+      <SidebarContent className="bg-[#F3F3F3]">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>

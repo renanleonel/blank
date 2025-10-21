@@ -1,20 +1,28 @@
-import { LIST_USERS_QUERY_KEY } from '@/containers/users/queries/user-queries';
-import { UserRepository } from '@/containers/users/repositories/user';
-import type { UseMutationOptions } from '@tanstack/react-query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type { AxiosError } from 'axios';
+import { LIST_USERS_QUERY_KEY } from "@/containers/users/queries/user-queries";
+import { UserRepository } from "@/containers/users/repositories/user";
+import type { UseMutationOptions } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
 type DeleteUserProps = {
   options?: Omit<
-    UseMutationOptions<{ success: boolean; message: string }, AxiosError, string>,
-    'mutationFn'
+    UseMutationOptions<
+      { success: boolean; message: string },
+      AxiosError,
+      string
+    >,
+    "mutationFn"
   >;
 };
 
 function useDeleteUser({ options }: DeleteUserProps = {}) {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<{ success: boolean; message: string }, AxiosError, string>({
+  const mutation = useMutation<
+    { success: boolean; message: string },
+    AxiosError,
+    string
+  >({
     mutationFn: async (id: string) => {
       const response = await UserRepository.deleteUser(id);
 
@@ -27,7 +35,7 @@ function useDeleteUser({ options }: DeleteUserProps = {}) {
       options?.onSuccess?.(...args);
     },
     onError: (error) => {
-      console.error('Failed to delete user:', error.message);
+      console.error("Failed to delete user:", error.message);
     },
   });
 

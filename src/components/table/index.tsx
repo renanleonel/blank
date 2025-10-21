@@ -1,9 +1,15 @@
-import { SkeletonTable } from '@/components/table/skeleton-table';
-import { cn } from '@/lib/utils';
-import { UseInfiniteQueryResult } from '@tanstack/react-query';
-import { ColumnDef, flexRender, getCoreRowModel, Row, useReactTable } from '@tanstack/react-table';
-import { useVirtualizer } from '@tanstack/react-virtual';
-import { useCallback, useEffect, useRef } from 'react';
+import { SkeletonTable } from "@/components/table/skeleton-table";
+import { cn } from "@/lib/utils";
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  Row,
+  useReactTable,
+} from "@tanstack/react-table";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import { useCallback, useEffect, useRef } from "react";
 
 type TablePagination = {
   totalRowCount: number;
@@ -21,7 +27,10 @@ type VirtualizedTableProps<T> = {
   query: UseInfiniteQueryResult<TableData<T>>;
 };
 
-export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>) {
+export function VirtualizedTable<T>({
+  query,
+  columns,
+}: VirtualizedTableProps<T>) {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, isFetching, isLoading } = query;
@@ -44,7 +53,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
         }
       }
     },
-    [fetchNextPage, isFetching, totalFetched, totalRowCount]
+    [fetchNextPage, isFetching, totalFetched, totalRowCount],
   );
 
   const table = useReactTable<T>({
@@ -52,7 +61,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
     columns,
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
-    columnResizeMode: 'onChange',
+    columnResizeMode: "onChange",
     enableColumnResizing: true,
     defaultColumn: {
       size: 100,
@@ -68,36 +77,48 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
     estimateSize: () => 50,
     getScrollElement: () => tableContainerRef.current,
     measureElement:
-      typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1
+      typeof window !== "undefined" &&
+      navigator.userAgent.indexOf("Firefox") === -1
         ? (element) => element?.getBoundingClientRect().height
         : undefined,
     overscan: 50,
   });
 
-  useEffect(() => fetchMoreOnBottomReached(tableContainerRef.current), [fetchMoreOnBottomReached]);
+  useEffect(
+    () => fetchMoreOnBottomReached(tableContainerRef.current),
+    [fetchMoreOnBottomReached],
+  );
 
   if (isLoading) return <SkeletonTable<T> table={table} />;
 
   return (
-    <div className='rounded-lg border border-gray-200 h-full flex flex-col w-full'>
-      <div className='bg-gray-50 border-b border-gray-200'>
-        <table className='w-full grid'>
-          <thead className='grid w-full'>
+    <div className="rounded-lg border border-gray-200 h-full flex flex-col w-full">
+      <div className="bg-gray-50 border-b border-gray-200">
+        <table className="w-full grid">
+          <thead className="grid w-full">
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className='flex w-full bg-gray-50'>
+              <tr key={headerGroup.id} className="flex w-full bg-gray-50">
                 {headerGroup.headers.map((header, index) => (
                   <th
                     key={header.id}
                     className={cn(
-                      'py-2 flex text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
-                      index === headerGroup.headers.length - 1 ? 'px-0' : 'px-4'
+                      "py-2 flex text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                      index === headerGroup.headers.length - 1
+                        ? "px-0"
+                        : "px-4",
                     )}
                     style={{
                       minWidth: header.column.columnDef.minSize,
                       maxWidth: header.column.columnDef.maxSize,
                       width: `${(header.getSize() / table.getTotalSize()) * 100}%`,
-                    }}>
-                    <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
+                    }}
+                  >
+                    <div>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                    </div>
                   </th>
                 ))}
               </tr>
@@ -107,13 +128,15 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
       </div>
 
       <div
-        className='flex-1 overflow-auto h-[600px]'
+        className="flex-1 overflow-auto h-[600px]"
         onScroll={(e) => fetchMoreOnBottomReached(e.currentTarget)}
-        ref={tableContainerRef}>
-        <table className='w-full grid'>
+        ref={tableContainerRef}
+      >
+        <table className="w-full grid">
           <tbody
-            className='grid relative w-full'
-            style={{ height: `${rowVirtualizer.getTotalSize()}px` }}>
+            className="grid relative w-full"
+            style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+          >
             {rowVirtualizer.getVirtualItems().map((virtualRow) => {
               const row = rows[virtualRow.index] as Row<T>;
 
@@ -122,21 +145,28 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
                   data-index={virtualRow.index}
                   ref={(node) => rowVirtualizer.measureElement(node)}
                   key={row.id}
-                  className='hover:bg-gray-50 flex absolute w-full'
-                  style={{ transform: `translateY(${virtualRow.start}px)` }}>
+                  className="hover:bg-gray-50 flex absolute w-full"
+                  style={{ transform: `translateY(${virtualRow.start}px)` }}
+                >
                   {row.getVisibleCells().map((cell, cellIndex) => (
                     <td
                       key={cell.id}
                       className={cn(
-                        'py-4 flex whitespace-nowrap text-sm text-gray-900',
-                        cellIndex === row.getVisibleCells().length - 1 ? 'px-0' : 'px-4'
+                        "py-4 flex whitespace-nowrap text-sm text-gray-900",
+                        cellIndex === row.getVisibleCells().length - 1
+                          ? "px-0"
+                          : "px-4",
                       )}
                       style={{
                         minWidth: cell.column.columnDef.minSize,
                         maxWidth: cell.column.columnDef.maxSize,
                         width: `${(cell.column.getSize() / table.getTotalSize()) * 100}%`,
-                      }}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      }}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -148,9 +178,10 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
 
       <div
         className={cn(
-          'flex w-full items-center gap-2 px-4 py-2 text-xs text-gray-500 bg-gray-50 border-t',
-          !isFetching ? 'justify-end' : 'justify-between'
-        )}>
+          "flex w-full items-center gap-2 px-4 py-2 text-xs text-gray-500 bg-gray-50 border-t",
+          !isFetching ? "justify-end" : "justify-between",
+        )}
+      >
         {isFetching && <span>Fetching more data...</span>}
 
         <span>

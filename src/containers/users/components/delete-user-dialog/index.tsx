@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -6,8 +6,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Loader2 } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 
 type DeleteUserDialogProps = {
   open: boolean;
@@ -33,24 +33,26 @@ export function DeleteUserDialog({
         </DialogHeader>
         <DialogFooter>
           <Button
-            variant='outline'
+            variant="outline"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
-            className='cursor-pointer'>
+            className="cursor-pointer"
+          >
             Cancel
           </Button>
           <Button
-            variant='destructive'
+            variant="destructive"
             onClick={onConfirm}
             disabled={isLoading}
-            className='cursor-pointer'>
+            className="cursor-pointer"
+          >
             {isLoading ? (
               <>
-                <Loader2 className='w-4 h-4 animate-spin' />
+                <Loader2 className="w-4 h-4 animate-spin" />
                 Deleting...
               </>
             ) : (
-              'Delete'
+              "Delete"
             )}
           </Button>
         </DialogFooter>

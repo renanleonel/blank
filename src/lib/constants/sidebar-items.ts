@@ -6,8 +6,8 @@ type SidebarItem = {
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
-    href: '/table',
-    icon: 'table',
-    label: 'Table',
+    href: "/table",
+    icon: "table",
+    label: "Table",
   },
 ];

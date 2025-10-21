@@ -3,26 +3,30 @@ import {
   ListUsersQueryResult,
   listUsersQueryResultSchema,
   UserApiResponse,
-} from '@/containers/users/domain/schemas/user';
-import { UserRepository } from '@/containers/users/repositories/user';
-import type { UseInfiniteQueryOptions } from '@tanstack/react-query';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import type { AxiosError } from 'axios';
+} from "@/containers/users/domain/schemas/user";
+import { UserRepository } from "@/containers/users/repositories/user";
+import type { UseInfiniteQueryOptions } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
 type ListUsersProps = {
   params: ListUsersParams;
   options?: Omit<
     UseInfiniteQueryOptions<UserApiResponse, AxiosError, ListUsersQueryResult>,
-    'queryKey' | 'queryFn' | 'getNextPageParam' | 'initialPageParam'
+    "queryKey" | "queryFn" | "getNextPageParam" | "initialPageParam"
   >;
 };
 
-export const LIST_USERS_QUERY_KEY = 'list-infinite-users';
+export const LIST_USERS_QUERY_KEY = "list-infinite-users";
 
 function useListUsers({ params, options }: ListUsersProps) {
   const queryKey = [LIST_USERS_QUERY_KEY, params];
 
-  const query = useInfiniteQuery<UserApiResponse, AxiosError, ListUsersQueryResult>({
+  const query = useInfiniteQuery<
+    UserApiResponse,
+    AxiosError,
+    ListUsersQueryResult
+  >({
     queryKey,
     queryFn: async ({ pageParam = 0 }) => {
       const { fetchSize = 50 } = params;
@@ -48,7 +52,8 @@ function useListUsers({ params, options }: ListUsersProps) {
         },
       };
 
-      const parsedResponse = listUsersQueryResultSchema.parse(formattedResponse);
+      const parsedResponse =
+        listUsersQueryResultSchema.parse(formattedResponse);
 
       return parsedResponse;
     },

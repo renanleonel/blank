@@ -1,17 +1,17 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
-import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu';
-import { ChevronDown, X } from 'lucide-react';
-import { useState } from 'react';
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+import { ChevronDown, X } from "lucide-react";
+import { useState } from "react";
 
-type Checked = DropdownMenuCheckboxItemProps['checked'];
+type Checked = DropdownMenuCheckboxItemProps["checked"];
 
 type Item<T> = {
   label: string;
@@ -56,38 +56,42 @@ export const FilterDropdown = <T,>({
   return (
     <DropdownMenu onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline' className='flex items-center gap-2 cursor-pointer'>
+        <Button
+          variant="outline"
+          className="flex items-center gap-2 cursor-pointer"
+        >
           <span>{firstItem ?? placeholder}</span>
 
           {filteredItems.length > 1 && (
-            <span className='inline-flex tabular-nums items-center justify-center rounded-full bg-muted px-2 py-0.5 text-xs text-foreground/80'>
+            <span className="inline-flex tabular-nums items-center justify-center rounded-full bg-muted px-2 py-0.5 text-xs text-foreground/80">
               +{filteredItems.length - 1}
             </span>
           )}
 
           {filteredItems.length > 0 && (
             <span
-              role='button'
-              aria-label='Clear selected items'
+              role="button"
+              aria-label="Clear selected items"
               onClick={() => updateSearch([])}
               onPointerDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
               }}
-              className='inline-flex size-4 items-center justify-center rounded-full bg-foreground/10 text-foreground/70 hover:bg-foreground/20 hover:text-foreground'>
-              <X className='size-2 shrink-0' />
+              className="inline-flex size-4 items-center justify-center rounded-full bg-foreground/10 text-foreground/70 hover:bg-foreground/20 hover:text-foreground"
+            >
+              <X className="size-2 shrink-0" />
             </span>
           )}
 
           <ChevronDown
             className={cn(
-              'size-3.5 transition-transform duration-200',
-              isOpen ? 'rotate-180' : 'rotate-0'
+              "size-3.5 transition-transform duration-200",
+              isOpen ? "rotate-180" : "rotate-0",
             )}
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-fit' align='start'>
+      <DropdownMenuContent className="w-fit" align="start">
         {items.map((item) => {
           const isChecked = filteredItems.includes(item.value);
 
@@ -95,9 +99,10 @@ export const FilterDropdown = <T,>({
             <DropdownMenuCheckboxItem
               key={String(item.value)}
               checked={isChecked}
-              className='cursor-pointer'
+              className="cursor-pointer"
               onCheckedChange={handleToggleItem(item)}
-              onSelect={(e) => e.preventDefault()}>
+              onSelect={(e) => e.preventDefault()}
+            >
               {item.label}
             </DropdownMenuCheckboxItem>
           );
