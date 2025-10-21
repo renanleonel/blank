@@ -1,10 +1,11 @@
+import { Team } from '@/containers/users/domain/enums/team';
 import { UserAccountType } from '@/containers/users/domain/enums/user-account-type';
 import { UserStatus } from '@/containers/users/domain/enums/user-status';
 import { z } from 'zod';
 
 export const userSchema = z.object({
 	id: z.string(),
-	team: z.string(),
+	team: z.enum(Team),
 	organization: z.string(),
 	accountType: z.enum(UserAccountType),
 	status: z.enum(UserStatus),
@@ -17,7 +18,11 @@ export const userSchema = z.object({
 export type User = z.infer<typeof userSchema>;
 
 export const listUsersParamsSchema = z.object({
-	fetchSize: z.number().optional(),
+	start: z.number().optional(),
+	fetchSize: z.number(),
+	teams: z.array(z.enum(Team)).optional(),
+	accountTypes: z.array(z.enum(UserAccountType)).optional(),
+	status: z.array(z.enum(UserStatus)).optional(),
 });
 
 export type ListUsersParams = z.infer<typeof listUsersParamsSchema>;

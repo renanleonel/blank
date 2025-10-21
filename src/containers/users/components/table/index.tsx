@@ -5,8 +5,10 @@ import { User } from '@/containers/users/domain/schemas/user';
 import { useTableColumns } from '@/containers/users/hooks/use-table-columns';
 import { useDeleteUser } from '@/containers/users/mutations/user-mutations';
 import { useListUsers } from '@/containers/users/queries/user-queries';
+import { usersTableSearchSchema } from '@/lib/schemas/validate-search/users-table';
 import { keepPreviousData } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useSearch } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
 
 const FETCH_SIZE = 50;
 
@@ -14,8 +16,15 @@ export function UsersTable() {
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [userToDelete, setUserToDelete] = useState<User | null>(null);
 
+	const filters = useSearch({ from: '/_app/table/' });
+
+	const validFilters = useMemo(
+		() => usersTableSearchSchema.parse(filters),
+		[filters]
+	);
+
 	const listUsersQuery = useListUsers({
-		params: { fetchSize: FETCH_SIZE },
+		params: { fetchSize: FETCH_SIZE, ...validFilters },
 		options: { placeholderData: keepPreviousData },
 	});
 
@@ -48,7 +57,7 @@ export function UsersTable() {
 		<div className="flex flex-col gap-4 h-full w-full">
 			<FilterToolbar />
 
-			<div className="min-h-0">
+			<div className="min-h-0 h-full">
 				<VirtualizedTable<User>
 					columns={columns}
 					query={listUsersQuery}

@@ -1,18 +1,19 @@
+import { Team } from '@/containers/users/domain/enums/team';
 import { UserAccountType } from '@/containers/users/domain/enums/user-account-type';
 import { UserStatus } from '@/containers/users/domain/enums/user-status';
 import { User } from '@/containers/users/domain/schemas/user';
 
 export const generateRandomUser = (id: number): User => {
-	const teams = [
-		'Engineering',
-		'Marketing',
-		'Design',
-		'Sales',
-		'Support',
-		'Product',
+	const teams: Team[] = [
+		Team.ENGINEERING,
+		Team.MARKETING,
+		Team.DESIGN,
+		Team.SALES,
+		Team.SUPPORT,
+		Team.PRODUCT,
 	];
 
-	const organizations = [
+	const organizations: string[] = [
 		'TechCorp Inc',
 		'DataFlow LLC',
 		'CloudSync Group',

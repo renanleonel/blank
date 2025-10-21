@@ -33,13 +33,14 @@ function useListUsers({ params, options }: ListUsersProps) {
 	>({
 		queryKey,
 		queryFn: async ({ pageParam = 0 }) => {
-			const { fetchSize = 50 } = params;
+			const { fetchSize = 50, ...rest } = params;
 
 			const start = (pageParam as number) * fetchSize;
 
 			const response = await UserRepository.listUsers({
 				start,
 				fetchSize,
+				...rest,
 			});
 
 			return response;

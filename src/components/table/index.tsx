@@ -9,7 +9,7 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 type TablePagination = {
 	totalRowCount: number;
@@ -84,11 +84,6 @@ export function VirtualizedTable<T>({
 				: undefined,
 		overscan: 50,
 	});
-
-	useEffect(
-		() => fetchMoreOnBottomReached(tableContainerRef.current),
-		[fetchMoreOnBottomReached]
-	);
 
 	if (isLoading) return <SkeletonTable<T> table={table} />;
 

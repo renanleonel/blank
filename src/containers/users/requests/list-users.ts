@@ -1,19 +1,24 @@
 import { generateRandomUser } from '@/containers/users/domain/mocks';
-import { User, UserApiResponse } from '@/containers/users/domain/schemas/user';
+import {
+	ListUsersParams,
+	User,
+	UserApiResponse,
+} from '@/containers/users/domain/schemas/user';
 
 const deletedUserIds = new Set<string>();
 
+export const TOTAL_USERS = 200;
+
 export const listUsers = async (
-	start: number,
-	size: number
+	params: ListUsersParams
 ): Promise<UserApiResponse> => {
 	await new Promise(resolve => setTimeout(resolve, 500));
 
 	const users: User[] = [];
-	let currentIndex = start;
+	let currentIndex = params.start ?? 0;
 	let fetchedCount = 0;
 
-	while (fetchedCount < size && currentIndex < 10000) {
+	while (fetchedCount < params.fetchSize && currentIndex < TOTAL_USERS) {
 		const userId = (currentIndex + 1).toString();
 
 		if (!deletedUserIds.has(userId)) {
@@ -24,11 +29,28 @@ export const listUsers = async (
 		currentIndex++;
 	}
 
-	const totalRowCount = 10000 - deletedUserIds.size;
-	const hasNextPage = currentIndex < 10000;
+	const filteredUsers = users.filter(user => {
+		if (params?.teams && !params?.teams?.includes(user.team)) {
+			return false;
+		}
+		if (
+			params?.accountTypes &&
+			!params?.accountTypes?.includes(user.accountType)
+		) {
+			return false;
+		}
+		if (params?.status && !params?.status?.includes(user.status)) {
+			return false;
+		}
+
+		return true;
+	});
+
+	const totalRowCount = TOTAL_USERS - deletedUserIds.size;
+	const hasNextPage = currentIndex < TOTAL_USERS;
 
 	return {
-		data: users,
+		data: filteredUsers,
 		meta: {
 			totalRowCount,
 			hasNextPage,
