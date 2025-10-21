@@ -1,15 +1,16 @@
 const ACCOUNT_TYPES = [
   {
     label: 'Company',
-    value: 'company',
+    value: UserAccountType.COMPANY,
   },
   {
     label: 'Individual',
-    value: 'individual',
+    value: UserAccountType.INDIVIDUAL,
   },
 ];
 
 import { FilterDropdown } from '@/components/filters/dropdown';
+import { UserAccountType } from '@/containers/users/domain/enums/user-account-type';
 import { useRouter, useSearch } from '@tanstack/react-router';
 
 export const AccountTypeFilter = () => {
@@ -18,7 +19,7 @@ export const AccountTypeFilter = () => {
 
   const accountTypes = search.accountTypes ?? [];
 
-  const onFilterChange = (accountTypes: string[]) => {
+  const onFilterChange = (accountTypes: UserAccountType[]) => {
     router.navigate({
       to: '/table',
       replace: true,
@@ -27,7 +28,7 @@ export const AccountTypeFilter = () => {
   };
 
   return (
-    <FilterDropdown
+    <FilterDropdown<UserAccountType>
       items={ACCOUNT_TYPES}
       filteredItems={accountTypes}
       onFilterChange={onFilterChange}

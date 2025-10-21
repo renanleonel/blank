@@ -1,19 +1,20 @@
 const STATUS = [
   {
     label: 'Active',
-    value: 'active',
+    value: UserStatus.ACTIVE,
   },
   {
     label: 'Inactive',
-    value: 'inactive',
+    value: UserStatus.INACTIVE,
   },
   {
     label: 'Suspended',
-    value: 'suspended',
+    value: UserStatus.SUSPENDED,
   },
 ];
 
 import { FilterDropdown } from '@/components/filters/dropdown';
+import { UserStatus } from '@/containers/users/domain/enums/user-status';
 import { useRouter, useSearch } from '@tanstack/react-router';
 
 export const StatusFilter = () => {
@@ -22,7 +23,7 @@ export const StatusFilter = () => {
 
   const status = search.status ?? [];
 
-  const onFilterChange = (status: string[]) => {
+  const onFilterChange = (status: UserStatus[]) => {
     router.navigate({
       to: '/table',
       replace: true,
@@ -30,5 +31,11 @@ export const StatusFilter = () => {
     });
   };
 
-  return <FilterDropdown items={STATUS} filteredItems={status} onFilterChange={onFilterChange} />;
+  return (
+    <FilterDropdown<UserStatus>
+      items={STATUS}
+      filteredItems={status}
+      onFilterChange={onFilterChange}
+    />
+  );
 };

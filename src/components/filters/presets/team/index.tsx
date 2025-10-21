@@ -1,27 +1,28 @@
 const TEAMS = [
   {
     label: 'Engineering',
-    value: 'Engineering',
+    value: Team.ENGINEERING,
   },
   {
     label: 'Marketing',
-    value: 'Marketing',
+    value: Team.MARKETING,
   },
   {
     label: 'Design',
-    value: 'Design',
+    value: Team.DESIGN,
   },
   {
     label: 'Sales',
-    value: 'Sales',
+    value: Team.SALES,
   },
   {
     label: 'Support',
-    value: 'Support',
+    value: Team.SUPPORT,
   },
 ];
 
 import { FilterDropdown } from '@/components/filters/dropdown';
+import { Team } from '@/containers/users/domain/enums/team';
 import { useRouter, useSearch } from '@tanstack/react-router';
 
 export const TeamFilter = () => {
@@ -30,7 +31,7 @@ export const TeamFilter = () => {
 
   const teams = search.teams ?? [];
 
-  const onFilterChange = (teams: string[]) => {
+  const onFilterChange = (teams: Team[]) => {
     router.navigate({
       to: '/table',
       replace: true,
@@ -38,5 +39,7 @@ export const TeamFilter = () => {
     });
   };
 
-  return <FilterDropdown items={TEAMS} filteredItems={teams} onFilterChange={onFilterChange} />;
+  return (
+    <FilterDropdown<Team> items={TEAMS} filteredItems={teams} onFilterChange={onFilterChange} />
+  );
 };
