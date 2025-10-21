@@ -1,9 +1,12 @@
+import { UsersTable } from '@/containers/users/components/table';
 import { createFileRoute } from '@tanstack/react-router';
+import z from 'zod';
 
-export const Route = createFileRoute('/_app/table/')({
-  component: Table,
+const schema = z.object({
+  teams: z.array(z.string()).optional(),
 });
 
-function Table() {
-  return <div>Table</div>;
-}
+export const Route = createFileRoute('/_app/table/')({
+  component: () => <UsersTable />,
+  validateSearch: schema,
+});

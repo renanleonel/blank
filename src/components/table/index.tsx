@@ -79,7 +79,7 @@ export function VirtualizedTable<T>({ query, columns }: VirtualizedTableProps<T>
   if (isLoading) return <SkeletonTable<T> table={table} />;
 
   return (
-    <div className='rounded-lg border border-gray-200 h-full flex flex-col'>
+    <div className='rounded-lg border border-gray-200 h-full flex flex-col w-full'>
       <div className='bg-gray-50 border-b border-gray-200'>
         <table className='w-full grid'>
           <thead className='grid w-full'>

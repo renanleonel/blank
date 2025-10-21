@@ -1,3 +1,4 @@
+import { FilterToolbar } from '@/components/filters/toolbar';
 import { VirtualizedTable } from '@/components/table';
 import { DeleteUserDialog } from '@/containers/users/components/delete-user-dialog/index';
 import { User } from '@/containers/users/domain/schemas/user';
@@ -44,15 +45,19 @@ export function UsersTable() {
   });
 
   return (
-    <>
-      <VirtualizedTable<User> columns={columns} query={listUsersQuery} />
+    <div className='flex flex-col gap-4 h-full w-full'>
+      <FilterToolbar />
+
+      <div className='min-h-0'>
+        <VirtualizedTable<User> columns={columns} query={listUsersQuery} />
+      </div>
 
       <DeleteUserDialog
         open={deleteDialogOpen}
-        onOpenChange={setDeleteDialogOpen}
         onConfirm={handleConfirmDelete}
+        onOpenChange={setDeleteDialogOpen}
         isLoading={deleteUserMutation.isPending}
       />
-    </>
+    </div>
   );
 }

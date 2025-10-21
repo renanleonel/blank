@@ -1,4 +1,3 @@
-import { UsersTable } from '@/containers/users/components/table';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/')({
@@ -6,9 +5,5 @@ export const Route = createFileRoute('/_app/')({
 });
 
 function Index() {
-  return (
-    <div className='p-6 w-full h-full'>
-      <UsersTable />
-    </div>
-  );
+  return <div className='p-6 w-full h-full'>main</div>;
 }
