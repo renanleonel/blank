@@ -3,6 +3,6 @@ import { usersTableSearchSchema } from '@/lib/schemas/validate-search/users-tabl
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/table/')({
-	component: () => <UsersTable />,
-	validateSearch: usersTableSearchSchema,
+  component: () => <UsersTable />,
+  validateSearch: usersTableSearchSchema,
 });

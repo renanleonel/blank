@@ -13,63 +13,60 @@ import { useMemo, useState } from 'react';
 const FETCH_SIZE = 50;
 
 export function UsersTable() {
-	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-	const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
 
-	const filters = useSearch({ from: '/_app/table/' });
+  const filters = useSearch({ from: '/_app/table/' });
 
-	const validFilters = useMemo(
-		() => usersTableSearchSchema.parse(filters),
-		[filters]
-	);
+  const validFilters = useMemo(
+    () => usersTableSearchSchema.parse(filters),
+    [filters]
+  );
 
-	const listUsersQuery = useListUsers({
-		params: { fetchSize: FETCH_SIZE, ...validFilters },
-		options: { placeholderData: keepPreviousData },
-	});
+  const listUsersQuery = useListUsers({
+    params: { fetchSize: FETCH_SIZE, ...validFilters },
+    options: { placeholderData: keepPreviousData },
+  });
 
-	const deleteUserMutation = useDeleteUser({
-		options: {
-			onSuccess: () => {
-				setDeleteDialogOpen(false);
-				setUserToDelete(null);
-			},
-		},
-	});
+  const deleteUserMutation = useDeleteUser({
+    options: {
+      onSuccess: () => {
+        setDeleteDialogOpen(false);
+        setUserToDelete(null);
+      },
+    },
+  });
 
-	const handleDeleteUser = (user: User) => {
-		setUserToDelete(user);
-		setDeleteDialogOpen(true);
-	};
+  const handleDeleteUser = (user: User) => {
+    setUserToDelete(user);
+    setDeleteDialogOpen(true);
+  };
 
-	const handleConfirmDelete = () => {
-		if (!userToDelete) return;
+  const handleConfirmDelete = () => {
+    if (!userToDelete) return;
 
-		deleteUserMutation.mutateAsync(userToDelete.id);
-	};
+    deleteUserMutation.mutateAsync(userToDelete.id);
+  };
 
-	const { columns } = useTableColumns({
-		isLoading: listUsersQuery.isLoading,
-		onDeleteUser: handleDeleteUser,
-	});
+  const { columns } = useTableColumns({
+    isLoading: listUsersQuery.isLoading,
+    onDeleteUser: handleDeleteUser,
+  });
 
-	return (
-		<div className="flex flex-col gap-4 h-full w-full">
-			<FilterToolbar />
+  return (
+    <div className="flex flex-col gap-4 h-full w-full">
+      <FilterToolbar />
 
-			<div className="min-h-0 h-full">
-				<VirtualizedTable<User>
-					columns={columns}
-					query={listUsersQuery}
-				/>
-			</div>
+      <div className="min-h-0 h-full">
+        <VirtualizedTable<User> columns={columns} query={listUsersQuery} />
+      </div>
 
-			<DeleteUserDialog
-				open={deleteDialogOpen}
-				onConfirm={handleConfirmDelete}
-				onOpenChange={setDeleteDialogOpen}
-				isLoading={deleteUserMutation.isPending}
-			/>
-		</div>
-	);
+      <DeleteUserDialog
+        open={deleteDialogOpen}
+        onConfirm={handleConfirmDelete}
+        onOpenChange={setDeleteDialogOpen}
+        isLoading={deleteUserMutation.isPending}
+      />
+    </div>
+  );
 }
