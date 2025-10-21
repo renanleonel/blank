@@ -85,7 +85,7 @@ export const FilterDropdown = <T,>({
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-56'>
+      <DropdownMenuContent className='w-fit'>
         {items.map((item) => {
           const isChecked = filteredItems.includes(item.value);
 
@@ -94,7 +94,8 @@ export const FilterDropdown = <T,>({
               key={String(item.value)}
               checked={isChecked}
               className='cursor-pointer'
-              onCheckedChange={handleToggleItem(item)}>
+              onCheckedChange={handleToggleItem(item)}
+              onSelect={(e) => e.preventDefault()}>
               {item.label}
             </DropdownMenuCheckboxItem>
           );
