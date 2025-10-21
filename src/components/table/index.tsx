@@ -116,12 +116,15 @@ export function VirtualizedTable<T>({
         <table className="w-full grid">
           <thead className="grid w-full">
             {table.getHeaderGroups().map(headerGroup => (
-              <tr key={headerGroup.id} className="flex w-full bg-gray-50">
+              <tr
+                key={headerGroup.id}
+                className="flex w-full bg-gray-50 select-none"
+              >
                 {headerGroup.headers.map((header, index) => (
                   <th
                     key={header.id}
                     className={cn(
-                      'py-2 flex text-left text-xs font-medium text-gray-500',
+                      'py-2 flex text-left text-xs font-medium text-gray-500 tracking-wider',
                       index === headerGroup.headers.length - 1 ? 'px-0' : 'px-4'
                     )}
                     style={{
@@ -173,7 +176,7 @@ export function VirtualizedTable<T>({
                     <td
                       key={cell.id}
                       className={cn(
-                        'py-4 flex whitespace-nowrap text-sm text-gray-900',
+                        'py-4 flex whitespace-nowrap text-sm text-gray-900 overflow-hidden',
                         cellIndex === row.getVisibleCells().length - 1
                           ? 'px-0'
                           : 'px-4'
@@ -184,10 +187,12 @@ export function VirtualizedTable<T>({
                         width: `${(cell.column.getSize() / table.getTotalSize()) * 100}%`,
                       }}
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                      <div className="truncate w-full">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </div>
                     </td>
                   ))}
                 </tr>

@@ -56,7 +56,7 @@ export function useTableColumns({ isLoading, onDeleteUser }: HookProps) {
     columnHelper.accessor(COLUMN_KEYS.ACCOUNT_TYPE, {
       header: COLUMN_LABELS.ACCOUNT_TYPE,
       size: 1,
-      minSize: 100,
+      minSize: 120,
       cell: info => {
         return isLoading ? <Skeleton /> : info.getValue();
       },
@@ -64,7 +64,7 @@ export function useTableColumns({ isLoading, onDeleteUser }: HookProps) {
     columnHelper.accessor(COLUMN_KEYS.STATUS, {
       header: COLUMN_LABELS.STATUS,
       size: 0.8,
-      minSize: 80,
+      minSize: 100,
       cell: info => {
         if (isLoading) return <Skeleton />;
         if (info.getValue() === UserStatus.ACTIVE)
@@ -95,7 +95,7 @@ export function useTableColumns({ isLoading, onDeleteUser }: HookProps) {
     columnHelper.accessor(COLUMN_KEYS.PHONE, {
       header: COLUMN_LABELS.PHONE,
       size: 1.2,
-      minSize: 120,
+      minSize: 130,
       cell: info => {
         return isLoading ? <Skeleton /> : info.getValue();
       },
@@ -103,7 +103,7 @@ export function useTableColumns({ isLoading, onDeleteUser }: HookProps) {
     columnHelper.accessor(COLUMN_KEYS.TIMEZONE, {
       header: COLUMN_LABELS.TIMEZONE,
       size: 1.2,
-      minSize: 120,
+      minSize: 130,
       cell: info => {
         return isLoading ? <Skeleton /> : info.getValue();
       },

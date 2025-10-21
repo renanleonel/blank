@@ -17,7 +17,7 @@ export function SkeletonTable<T>({ table }: SkeletonTableProps<T>) {
                   <th
                     key={header.id}
                     className={cn(
-                      'py-2 flex text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+                      'py-2 flex text-left text-xs font-medium text-gray-500 tracking-wider',
                       index === headerGroup.headers.length - 1 ? 'px-0' : 'px-4'
                     )}
                     style={{
