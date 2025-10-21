@@ -12,6 +12,7 @@ const ACCOUNT_TYPES = [
 import { FilterDropdown } from '@/components/filters/dropdown';
 import { UserAccountType } from '@/containers/users/domain/enums/user-account-type';
 import { useRouter, useSearch } from '@tanstack/react-router';
+import { Building2 } from 'lucide-react';
 
 export const AccountTypeFilter = () => {
   const router = useRouter();
@@ -33,6 +34,7 @@ export const AccountTypeFilter = () => {
   return (
     <FilterDropdown<UserAccountType>
       items={ACCOUNT_TYPES}
+      icon={<Building2 />}
       placeholder="Account Types"
       filteredItems={accountTypes}
       onFilterChange={onFilterChange}

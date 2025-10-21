@@ -24,6 +24,7 @@ const TEAMS = [
 import { FilterDropdown } from '@/components/filters/dropdown';
 import { Team } from '@/containers/users/domain/enums/team';
 import { useRouter, useSearch } from '@tanstack/react-router';
+import { Users } from 'lucide-react';
 
 export const TeamFilter = () => {
   const router = useRouter();
@@ -45,6 +46,7 @@ export const TeamFilter = () => {
   return (
     <FilterDropdown<Team>
       items={TEAMS}
+      icon={<Users />}
       placeholder="Teams"
       filteredItems={teams}
       onFilterChange={onFilterChange}

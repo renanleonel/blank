@@ -16,6 +16,7 @@ const STATUS = [
 import { FilterDropdown } from '@/components/filters/dropdown';
 import { UserStatus } from '@/containers/users/domain/enums/user-status';
 import { useRouter, useSearch } from '@tanstack/react-router';
+import { CircleCheck } from 'lucide-react';
 
 export const StatusFilter = () => {
   const router = useRouter();
@@ -37,6 +38,7 @@ export const StatusFilter = () => {
   return (
     <FilterDropdown<UserStatus>
       items={STATUS}
+      icon={<CircleCheck />}
       placeholder="Status"
       filteredItems={status}
       onFilterChange={onFilterChange}

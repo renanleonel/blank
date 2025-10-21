@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu';
 import { ChevronDown, X } from 'lucide-react';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 type Checked = DropdownMenuCheckboxItemProps['checked'];
 
@@ -20,6 +20,7 @@ type Item<T> = {
 
 type FilterDropdownProps<T> = {
   items: Item<T>[];
+  icon?: ReactNode;
   placeholder: string;
   filteredItems: T[];
   onFilterChange: (nextSelected: T[]) => void;
@@ -27,6 +28,7 @@ type FilterDropdownProps<T> = {
 
 export const FilterDropdown = <T,>({
   items,
+  icon,
   placeholder,
   filteredItems,
   onFilterChange,
@@ -58,8 +60,9 @@ export const FilterDropdown = <T,>({
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer select-none focus-visible:ring-0"
         >
+          {icon && <span className="size-4">{icon}</span>}
           <span>{firstItem ?? placeholder}</span>
 
           {filteredItems.length > 1 && (
@@ -91,7 +94,7 @@ export const FilterDropdown = <T,>({
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-fit" align="start">
+      <DropdownMenuContent className="w-fit min-w-[160px]" align="start">
         {items.map(item => {
           const isChecked = filteredItems.includes(item.value);
 
