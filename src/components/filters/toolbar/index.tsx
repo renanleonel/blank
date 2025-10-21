@@ -1,4 +1,5 @@
 import { AccountTypeFilter } from '@/components/filters/presets/account-type';
+import { StatusFilter } from '@/components/filters/presets/status';
 import { TeamFilter } from '@/components/filters/presets/team';
 import { Button } from '@/components/ui/button';
 import { usersTableSearchSchema } from '@/lib/schemas/validate-search/users-table';
@@ -27,6 +28,7 @@ export const FilterToolbar = () => {
       <div className='flex items-center gap-2'>
         <TeamFilter />
         <AccountTypeFilter />
+        <StatusFilter />
       </div>
 
       {hasFilters && (
