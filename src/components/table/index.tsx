@@ -23,7 +23,7 @@ export type TableData<T> = {
 };
 
 type VirtualizedTableProps<T> = {
-  columns: ColumnDef<T>[];
+  columns: ColumnDef<T, any>[]; // eslint-disable-line @typescript-eslint/no-explicit-any
   query: UseInfiniteQueryResult<TableData<T>>;
 };
 
@@ -33,7 +33,7 @@ export function VirtualizedTable<T>({
 }: VirtualizedTableProps<T>) {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const { data, fetchNextPage, isFetching, isLoading } = query;
+  const { data, fetchNextPage, isFetching, isLoading, isError } = query;
 
   const flatData = useMemo(() => data?.list ?? [], [data]);
   const totalFetched = useMemo(
@@ -96,6 +96,20 @@ export function VirtualizedTable<T>({
 
   if (isLoading) return <SkeletonTable<T> table={table} />;
 
+  if (isError)
+    return (
+      <div className="rounded-lg border border-gray-200 h-full flex flex-col w-full items-center justify-center">
+        Error loading data
+      </div>
+    );
+
+  if (!data?.list.length)
+    return (
+      <div className="rounded-lg border border-gray-200 h-full flex flex-col w-full items-center justify-center">
+        No Data
+      </div>
+    );
+
   return (
     <div className="rounded-lg border border-gray-200 h-full flex flex-col w-full">
       <div className="bg-gray-50 border-b border-gray-200">
@@ -107,7 +121,7 @@ export function VirtualizedTable<T>({
                   <th
                     key={header.id}
                     className={cn(
-                      'py-2 flex text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+                      'py-2 flex text-left text-xs font-medium text-gray-500',
                       index === headerGroup.headers.length - 1 ? 'px-0' : 'px-4'
                     )}
                     style={{

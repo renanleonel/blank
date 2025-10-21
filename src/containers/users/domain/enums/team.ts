@@ -1,8 +1,8 @@
 export enum Team {
-  ENGINEERING = 'engineering',
-  MARKETING = 'marketing',
-  DESIGN = 'design',
-  SALES = 'sales',
-  SUPPORT = 'support',
-  PRODUCT = 'product',
+  ENGINEERING = 'Engineering',
+  MARKETING = 'Marketing',
+  DESIGN = 'Design',
+  SALES = 'Sales',
+  SUPPORT = 'Support',
+  PRODUCT = 'Product',
 }

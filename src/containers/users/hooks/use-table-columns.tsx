@@ -1,7 +1,10 @@
 import { TableActions } from '@/components/table/table-actions';
+import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import { UserStatus } from '@/containers/users/domain/enums/user-status';
 import { User } from '@/containers/users/domain/schemas/user';
 import { createColumnHelper } from '@tanstack/react-table';
+import { CircleAlert, CircleCheck, CircleX } from 'lucide-react';
 
 const columnHelper = createColumnHelper<User>();
 
@@ -11,6 +14,9 @@ const COLUMN_KEYS: Record<string, keyof User> = {
   ACCOUNT_TYPE: 'accountType',
   STATUS: 'status',
   PHONE: 'phone',
+  TIMEZONE: 'timezone',
+  CREATED_AT: 'createdAt',
+  UPDATED_AT: 'updatedAt',
 };
 
 const COLUMN_LABELS: Record<string, string> = {
@@ -19,6 +25,9 @@ const COLUMN_LABELS: Record<string, string> = {
   ACCOUNT_TYPE: 'Account type',
   STATUS: 'Status',
   PHONE: 'Phone',
+  TIMEZONE: 'Timezone',
+  CREATED_AT: 'Created at',
+  UPDATED_AT: 'Updated at',
 };
 
 type HookProps = {
@@ -36,56 +45,79 @@ export function useTableColumns({ isLoading, onDeleteUser }: HookProps) {
         return isLoading ? <Skeleton /> : info.getValue();
       },
     }),
-    columnHelper.accessor('organization', {
-      header: 'Organization',
+    columnHelper.accessor(COLUMN_KEYS.ORGANIZATION, {
+      header: COLUMN_LABELS.ORGANIZATION,
       size: 2,
       minSize: 150,
       cell: info => {
         return isLoading ? <Skeleton /> : info.getValue();
       },
     }),
-    columnHelper.accessor('accountType', {
-      header: 'Account type',
+    columnHelper.accessor(COLUMN_KEYS.ACCOUNT_TYPE, {
+      header: COLUMN_LABELS.ACCOUNT_TYPE,
       size: 1,
       minSize: 100,
       cell: info => {
         return isLoading ? <Skeleton /> : info.getValue();
       },
     }),
-    columnHelper.accessor('status', {
-      header: 'Status',
+    columnHelper.accessor(COLUMN_KEYS.STATUS, {
+      header: COLUMN_LABELS.STATUS,
       size: 0.8,
       minSize: 80,
       cell: info => {
-        return isLoading ? <Skeleton /> : info.getValue();
+        if (isLoading) return <Skeleton />;
+        if (info.getValue() === UserStatus.ACTIVE)
+          return (
+            <Badge variant="green">
+              <CircleCheck className="size-3" />
+              <span>Active</span>
+            </Badge>
+          );
+        if (info.getValue() === UserStatus.INACTIVE)
+          return (
+            <Badge variant="red">
+              <CircleX className="size-3" />
+              <span>Inactive</span>
+            </Badge>
+          );
+        if (info.getValue() === UserStatus.SUSPENDED)
+          return (
+            <Badge variant="yellow">
+              <CircleAlert className="size-3" />
+              <span>Suspended</span>
+            </Badge>
+          );
+
+        return info.getValue();
       },
     }),
-    columnHelper.accessor('phone', {
-      header: 'Phone',
+    columnHelper.accessor(COLUMN_KEYS.PHONE, {
+      header: COLUMN_LABELS.PHONE,
       size: 1.2,
       minSize: 120,
       cell: info => {
         return isLoading ? <Skeleton /> : info.getValue();
       },
     }),
-    columnHelper.accessor('timezone', {
-      header: 'Timezone',
+    columnHelper.accessor(COLUMN_KEYS.TIMEZONE, {
+      header: COLUMN_LABELS.TIMEZONE,
       size: 1.2,
       minSize: 120,
       cell: info => {
         return isLoading ? <Skeleton /> : info.getValue();
       },
     }),
-    columnHelper.accessor('createdAt', {
-      header: 'Created at',
+    columnHelper.accessor(COLUMN_KEYS.CREATED_AT, {
+      header: COLUMN_LABELS.CREATED_AT,
       size: 1,
       minSize: 100,
       cell: info => {
         return isLoading ? <Skeleton /> : info.getValue();
       },
     }),
-    columnHelper.accessor('updatedAt', {
-      header: 'Updated at',
+    columnHelper.accessor(COLUMN_KEYS.UPDATED_AT, {
+      header: COLUMN_LABELS.UPDATED_AT,
       size: 1,
       minSize: 100,
       cell: info => {
