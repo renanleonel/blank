@@ -1,6 +1,7 @@
 import { TableActions } from '@/components/table/table-actions';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ClipboardButton } from '@/containers/users/components/clipboard-button';
 import { UserStatus } from '@/containers/users/domain/enums/user-status';
 import { User } from '@/containers/users/domain/schemas/user';
 import { createColumnHelper } from '@tanstack/react-table';
@@ -97,7 +98,16 @@ export function useTableColumns({ isLoading, onDeleteUser }: HookProps) {
       size: 1.2,
       minSize: 130,
       cell: info => {
-        return isLoading ? <Skeleton /> : info.getValue();
+        if (isLoading) return <Skeleton />;
+
+        const phoneValue = info.getValue();
+
+        return (
+          <div className="flex items-center justify-between">
+            <span>{phoneValue}</span>
+            <ClipboardButton value={phoneValue} />
+          </div>
+        );
       },
     }),
     columnHelper.accessor(COLUMN_KEYS.TIMEZONE, {
