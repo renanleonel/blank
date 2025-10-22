@@ -12,7 +12,6 @@ export class UserRepository {
   public static async listUsers(
     params: ListUsersParams
   ): Promise<UserApiResponse> {
-    console.log('params', params);
     const response = await listUsers(params);
 
     const parsedResponse = userApiResponseSchema.parse(response);

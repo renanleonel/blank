@@ -62,8 +62,8 @@ export const FilterDropdown = <T,>({
           variant="outline"
           className="flex items-center gap-2 cursor-pointer select-none focus-visible:ring-0"
         >
-          {icon && <span className="size-4">{icon}</span>}
-          <span>{firstItem ?? placeholder}</span>
+          {icon && <span className="size-4 text-gray-600">{icon}</span>}
+          <span className="text-gray-600">{firstItem ?? placeholder}</span>
 
           {filteredItems.length > 1 && (
             <span className="inline-flex tabular-nums items-center justify-center rounded-full bg-muted px-2 py-0.5 text-xs text-foreground/80">

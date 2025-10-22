@@ -54,7 +54,13 @@ export function UsersTable() {
   });
 
   return (
-    <div className="flex flex-col gap-4 h-full w-full">
+    <div className="flex flex-col gap-8 h-full w-full">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-2xl font-medium">Users</h1>
+        <p className="text-sm text-gray-500">
+          Manage your users and their access to the platform.
+        </p>
+      </div>
       <FilterToolbar />
 
       <div className="min-h-0 h-full">
