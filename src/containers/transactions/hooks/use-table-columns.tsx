@@ -109,7 +109,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('currency', {
       header: COLUMN_LABELS.CURRENCY,
       size: 1.2,
-      minSize: 130,
+      minSize: 100,
       cell: info => {
         if (isLoading) return <Skeleton />;
         return <span className="truncate block">{info.getValue()}</span>;
@@ -122,12 +122,22 @@ export function useTableColumns({ isLoading }: HookProps) {
       cell: info => {
         if (isLoading) return <Skeleton />;
 
-        const value = info.getValue();
+        const amountInCents = info.getValue();
+        const currency = info.row.original.currency;
+
+        const amountInDollars = amountInCents / 100;
+
+        const formattedAmount = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: currency,
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(amountInDollars);
 
         return (
           <div className="flex items-center justify-between gap-2 min-w-0">
-            <span className="truncate flex-1">{value}</span>
-            <ClipboardButton value={value.toString()} />
+            <span className="truncate flex-1">{formattedAmount}</span>
+            <ClipboardButton value={formattedAmount} />
           </div>
         );
       },
