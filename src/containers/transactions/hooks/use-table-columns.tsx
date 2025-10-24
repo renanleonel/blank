@@ -1,10 +1,19 @@
-import { Badge } from '@/components/ui/badge';
+import { Badge, badgeVariants } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ClipboardButton } from '@/containers/transactions/components/clipboard-button';
-import { TransactionStatus } from '@/containers/transactions/domain/enums/transaction';
+import {
+  TRANSACTION_GATEWAY_ICONS,
+  TRANSACTION_STATUS_ICONS,
+  TRANSACTION_TYPE_ICONS,
+} from '@/containers/transactions/components/icons';
+import {
+  TransactionGateway,
+  TransactionStatus,
+  TransactionType,
+} from '@/containers/transactions/domain/enums/transaction';
 import { Transaction } from '@/containers/transactions/domain/schemas/transaction';
 import { createColumnHelper } from '@tanstack/react-table';
-import { CircleAlert, CircleCheck, CircleX } from 'lucide-react';
+import { VariantProps } from 'class-variance-authority';
 
 const columnHelper = createColumnHelper<Transaction>();
 
@@ -32,6 +41,23 @@ const COLUMN_LABELS: Record<string, string> = {
 
 type HookProps = {
   isLoading: boolean;
+};
+
+const STATUS_BADGE_VARIANTS: Record<
+  TransactionStatus,
+  VariantProps<typeof badgeVariants>['variant']
+> = {
+  [TransactionStatus.PENDING]: 'yellow',
+  [TransactionStatus.COMPLETED]: 'green',
+  [TransactionStatus.FAILED]: 'red',
+  [TransactionStatus.CANCELLED]: 'orange',
+};
+
+const STATUS_BADGE_LABELS: Record<TransactionStatus, string> = {
+  [TransactionStatus.PENDING]: 'Pending',
+  [TransactionStatus.COMPLETED]: 'Completed',
+  [TransactionStatus.FAILED]: 'Failed',
+  [TransactionStatus.CANCELLED]: 'Cancelled',
 };
 
 export function useTableColumns({ isLoading }: HookProps) {
@@ -66,7 +92,16 @@ export function useTableColumns({ isLoading }: HookProps) {
       size: 1,
       minSize: 120,
       cell: info => {
-        return isLoading ? <Skeleton /> : info.getValue();
+        if (isLoading) return <Skeleton />;
+
+        const value = info.getValue() as TransactionType;
+
+        return (
+          <div className="flex items-center gap-1">
+            <span>{TRANSACTION_TYPE_ICONS[value]}</span>
+            <span>{value}</span>
+          </div>
+        );
       },
     }),
     columnHelper.accessor(COLUMN_KEYS.GATEWAY, {
@@ -74,7 +109,16 @@ export function useTableColumns({ isLoading }: HookProps) {
       size: 1.2,
       minSize: 130,
       cell: info => {
-        return isLoading ? <Skeleton /> : info.getValue();
+        if (isLoading) return <Skeleton />;
+
+        const value = info.getValue() as TransactionGateway;
+
+        return (
+          <div className="flex items-center gap-1">
+            <span>{TRANSACTION_GATEWAY_ICONS[value]}</span>
+            <span>{value}</span>
+          </div>
+        );
       },
     }),
     columnHelper.accessor(COLUMN_KEYS.CURRENCY, {
@@ -124,36 +168,15 @@ export function useTableColumns({ isLoading }: HookProps) {
       minSize: 100,
       cell: info => {
         if (isLoading) return <Skeleton />;
-        if (info.getValue() === TransactionStatus.PENDING)
-          return (
-            <Badge variant="yellow">
-              <CircleCheck className="size-3" />
-              <span>Pending</span>
-            </Badge>
-          );
-        if (info.getValue() === TransactionStatus.COMPLETED)
-          return (
-            <Badge variant="green">
-              <CircleCheck className="size-3" />
-              <span>Completed</span>
-            </Badge>
-          );
-        if (info.getValue() === TransactionStatus.FAILED)
-          return (
-            <Badge variant="red">
-              <CircleAlert className="size-3" />
-              <span>Failed</span>
-            </Badge>
-          );
-        if (info.getValue() === TransactionStatus.CANCELLED)
-          return (
-            <Badge variant="orange">
-              <CircleX className="size-3" />
-              <span>Cancelled</span>
-            </Badge>
-          );
 
-        return info.getValue();
+        const value = info.getValue() as TransactionStatus;
+
+        return (
+          <Badge variant={STATUS_BADGE_VARIANTS[value]}>
+            {TRANSACTION_STATUS_ICONS[value]}
+            <span>{STATUS_BADGE_LABELS[value]}</span>
+          </Badge>
+        );
       },
     }),
   ];
