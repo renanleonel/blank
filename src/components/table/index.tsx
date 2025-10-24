@@ -187,7 +187,7 @@ export function VirtualizedTable<T>({
                         width: `${(cell.column.getSize() / table.getTotalSize()) * 100}%`,
                       }}
                     >
-                      <div className="truncate w-full">
+                      <div className="truncate w-full flex items-center">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
