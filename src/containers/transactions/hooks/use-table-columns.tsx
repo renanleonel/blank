@@ -80,8 +80,8 @@ export function useTableColumns({ isLoading }: HookProps) {
         });
 
         return (
-          <div className="flex items-center justify-between">
-            <span>{formattedValue}</span>
+          <div className="flex items-center justify-between gap-2 min-w-0">
+            <span className="truncate flex-1">{formattedValue}</span>
             <ClipboardButton value={value.toString()} />
           </div>
         );
@@ -97,9 +97,9 @@ export function useTableColumns({ isLoading }: HookProps) {
         const value = info.getValue() as TransactionType;
 
         return (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 min-w-0">
             <span>{TRANSACTION_TYPE_ICONS[value]}</span>
-            <span>{value}</span>
+            <span className="truncate">{value}</span>
           </div>
         );
       },
@@ -114,9 +114,9 @@ export function useTableColumns({ isLoading }: HookProps) {
         const value = info.getValue() as TransactionGateway;
 
         return (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 min-w-0">
             <span>{TRANSACTION_GATEWAY_ICONS[value]}</span>
-            <span>{value}</span>
+            <span className="truncate">{value}</span>
           </div>
         );
       },
@@ -126,7 +126,8 @@ export function useTableColumns({ isLoading }: HookProps) {
       size: 1.2,
       minSize: 130,
       cell: info => {
-        return isLoading ? <Skeleton /> : info.getValue();
+        if (isLoading) return <Skeleton />;
+        return <span className="truncate block">{info.getValue()}</span>;
       },
     }),
     columnHelper.accessor(COLUMN_KEYS.AMOUNT, {
@@ -139,8 +140,8 @@ export function useTableColumns({ isLoading }: HookProps) {
         const value = info.getValue();
 
         return (
-          <div className="flex items-center justify-between">
-            <span>{value}</span>
+          <div className="flex items-center justify-between gap-2 min-w-0">
+            <span className="truncate flex-1">{value}</span>
             <ClipboardButton value={value.toString()} />
           </div>
         );
@@ -151,7 +152,8 @@ export function useTableColumns({ isLoading }: HookProps) {
       size: 1,
       minSize: 100,
       cell: info => {
-        return isLoading ? <Skeleton /> : info.getValue();
+        if (isLoading) return <Skeleton />;
+        return <span className="truncate block">{info.getValue()}</span>;
       },
     }),
     columnHelper.accessor(COLUMN_KEYS.TO, {
@@ -159,7 +161,8 @@ export function useTableColumns({ isLoading }: HookProps) {
       size: 2,
       minSize: 150,
       cell: info => {
-        return isLoading ? <Skeleton /> : info.getValue();
+        if (isLoading) return <Skeleton />;
+        return <span className="truncate block">{info.getValue()}</span>;
       },
     }),
     columnHelper.accessor(COLUMN_KEYS.STATUS, {
@@ -172,9 +175,9 @@ export function useTableColumns({ isLoading }: HookProps) {
         const value = info.getValue() as TransactionStatus;
 
         return (
-          <Badge variant={STATUS_BADGE_VARIANTS[value]}>
+          <Badge variant={STATUS_BADGE_VARIANTS[value]} className="truncate">
             {TRANSACTION_STATUS_ICONS[value]}
-            <span>{STATUS_BADGE_LABELS[value]}</span>
+            <span className="truncate">{STATUS_BADGE_LABELS[value]}</span>
           </Badge>
         );
       },
