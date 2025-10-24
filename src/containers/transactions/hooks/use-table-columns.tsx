@@ -6,27 +6,12 @@ import {
   TRANSACTION_STATUS_ICONS,
   TRANSACTION_TYPE_ICONS,
 } from '@/containers/transactions/components/icons';
-import {
-  TransactionGateway,
-  TransactionStatus,
-  TransactionType,
-} from '@/containers/transactions/domain/enums/transaction';
+import { TransactionStatus } from '@/containers/transactions/domain/enums/transaction';
 import { Transaction } from '@/containers/transactions/domain/schemas/transaction';
 import { createColumnHelper } from '@tanstack/react-table';
 import { VariantProps } from 'class-variance-authority';
 
 const columnHelper = createColumnHelper<Transaction>();
-
-const COLUMN_KEYS: Record<string, keyof Transaction> = {
-  FROM: 'from',
-  TO: 'to',
-  TYPE: 'type',
-  GATEWAY: 'gateway',
-  AMOUNT: 'amount',
-  CURRENCY: 'currency',
-  STATUS: 'status',
-  TIMESTAMP: 'timestamp',
-};
 
 const COLUMN_LABELS: Record<string, string> = {
   FROM: 'From',
@@ -62,7 +47,7 @@ const STATUS_BADGE_LABELS: Record<TransactionStatus, string> = {
 
 export function useTableColumns({ isLoading }: HookProps) {
   const columns = [
-    columnHelper.accessor(COLUMN_KEYS.TIMESTAMP, {
+    columnHelper.accessor('timestamp', {
       header: COLUMN_LABELS.TIMESTAMP,
       size: 1,
       minSize: 150,
@@ -87,14 +72,14 @@ export function useTableColumns({ isLoading }: HookProps) {
         );
       },
     }),
-    columnHelper.accessor(COLUMN_KEYS.TYPE, {
+    columnHelper.accessor('type', {
       header: COLUMN_LABELS.TYPE,
       size: 1,
       minSize: 120,
       cell: info => {
         if (isLoading) return <Skeleton />;
 
-        const value = info.getValue() as TransactionType;
+        const value = info.getValue();
 
         return (
           <div className="flex items-center gap-1 min-w-0">
@@ -104,14 +89,14 @@ export function useTableColumns({ isLoading }: HookProps) {
         );
       },
     }),
-    columnHelper.accessor(COLUMN_KEYS.GATEWAY, {
+    columnHelper.accessor('gateway', {
       header: COLUMN_LABELS.GATEWAY,
       size: 1.2,
       minSize: 130,
       cell: info => {
         if (isLoading) return <Skeleton />;
 
-        const value = info.getValue() as TransactionGateway;
+        const value = info.getValue();
 
         return (
           <div className="flex items-center gap-1 min-w-0">
@@ -121,7 +106,7 @@ export function useTableColumns({ isLoading }: HookProps) {
         );
       },
     }),
-    columnHelper.accessor(COLUMN_KEYS.CURRENCY, {
+    columnHelper.accessor('currency', {
       header: COLUMN_LABELS.CURRENCY,
       size: 1.2,
       minSize: 130,
@@ -130,7 +115,7 @@ export function useTableColumns({ isLoading }: HookProps) {
         return <span className="truncate block">{info.getValue()}</span>;
       },
     }),
-    columnHelper.accessor(COLUMN_KEYS.AMOUNT, {
+    columnHelper.accessor('amount', {
       header: COLUMN_LABELS.AMOUNT,
       size: 1.2,
       minSize: 130,
@@ -147,7 +132,7 @@ export function useTableColumns({ isLoading }: HookProps) {
         );
       },
     }),
-    columnHelper.accessor(COLUMN_KEYS.FROM, {
+    columnHelper.accessor('from', {
       header: COLUMN_LABELS.FROM,
       size: 1,
       minSize: 100,
@@ -156,7 +141,7 @@ export function useTableColumns({ isLoading }: HookProps) {
         return <span className="truncate block">{info.getValue()}</span>;
       },
     }),
-    columnHelper.accessor(COLUMN_KEYS.TO, {
+    columnHelper.accessor('to', {
       header: COLUMN_LABELS.TO,
       size: 2,
       minSize: 150,
@@ -165,14 +150,14 @@ export function useTableColumns({ isLoading }: HookProps) {
         return <span className="truncate block">{info.getValue()}</span>;
       },
     }),
-    columnHelper.accessor(COLUMN_KEYS.STATUS, {
+    columnHelper.accessor('status', {
       header: COLUMN_LABELS.STATUS,
       size: 0.8,
       minSize: 100,
       cell: info => {
         if (isLoading) return <Skeleton />;
 
-        const value = info.getValue() as TransactionStatus;
+        const value = info.getValue();
 
         return (
           <Badge variant={STATUS_BADGE_VARIANTS[value]} className="truncate">
