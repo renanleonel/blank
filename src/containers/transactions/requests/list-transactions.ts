@@ -30,13 +30,28 @@ export const listTransactions = async (
   }
 
   const filteredTransactions = transactions.filter(transaction => {
-    if (params?.type && !params?.type?.includes(transaction.type)) {
+    if (
+      params?.transactionTypes &&
+      !params?.transactionTypes?.includes(transaction.type)
+    ) {
       return false;
     }
-    if (params?.gateway && !params?.gateway?.includes(transaction.gateway)) {
+    if (
+      params?.transactionGateways &&
+      !params?.transactionGateways?.includes(transaction.gateway)
+    ) {
       return false;
     }
-    if (params?.status && !params?.status?.includes(transaction.status)) {
+    if (
+      params?.transactionStatuses &&
+      !params?.transactionStatuses?.includes(transaction.status)
+    ) {
+      return false;
+    }
+    if (
+      params?.transactionCurrencies &&
+      !params?.transactionCurrencies?.includes(transaction.currency)
+    ) {
       return false;
     }
 

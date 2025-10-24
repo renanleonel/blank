@@ -41,7 +41,7 @@ export const TransactionGatewayFilter = () => {
     <FilterDropdown<TransactionGateway>
       items={TRANSACTION_GATEWAYS}
       icon={<CreditCard />}
-      placeholder="Transaction Gateways"
+      placeholder="Gateway"
       filteredItems={transactionGateways}
       onFilterChange={onFilterChange}
     />

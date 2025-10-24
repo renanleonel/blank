@@ -1,3 +1,4 @@
+import { TransactionCurrencyFilter } from '@/components/filters/presets/transaction-currency';
 import { TransactionGatewayFilter } from '@/components/filters/presets/transaction-gateway';
 import { TransactionStatusFilter } from '@/components/filters/presets/transaction-statuses';
 import { TransactionTypeFilter } from '@/components/filters/presets/transaction-type';
@@ -32,8 +33,9 @@ export const FilterToolbar = () => {
   return (
     <div className="flex items-center gap-2 justify-between">
       <div className="flex items-center gap-2">
-        <TransactionGatewayFilter />
         <TransactionTypeFilter />
+        <TransactionGatewayFilter />
+        <TransactionCurrencyFilter />
         <TransactionStatusFilter />
       </div>
 

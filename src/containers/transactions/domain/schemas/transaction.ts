@@ -1,4 +1,5 @@
 import {
+  TransactionCurrency,
   TransactionGateway,
   TransactionStatus,
   TransactionType,
@@ -12,7 +13,7 @@ export const transactionSchema = z.object({
   type: z.enum(TransactionType),
   gateway: z.enum(TransactionGateway),
   amount: z.number(),
-  currency: z.string(),
+  currency: z.enum(TransactionCurrency),
   status: z.enum(TransactionStatus),
   timestamp: z.string(),
 });
@@ -22,9 +23,10 @@ export type Transaction = z.infer<typeof transactionSchema>;
 export const listTransactionsParamsSchema = z.object({
   start: z.number().optional(),
   fetchSize: z.number(),
-  type: z.enum(TransactionType),
-  gateway: z.enum(TransactionGateway),
-  status: z.enum(TransactionStatus),
+  transactionTypes: z.array(z.enum(TransactionType)).optional(),
+  transactionGateways: z.array(z.enum(TransactionGateway)).optional(),
+  transactionStatuses: z.array(z.enum(TransactionStatus)).optional(),
+  transactionCurrencies: z.array(z.enum(TransactionCurrency)).optional(),
 });
 
 export type ListTransactionsParams = z.infer<

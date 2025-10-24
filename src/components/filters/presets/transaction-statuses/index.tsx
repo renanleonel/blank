@@ -45,7 +45,7 @@ export const TransactionStatusFilter = () => {
     <FilterDropdown<TransactionStatus>
       items={TRANSACTION_STATUSES}
       icon={<CircleCheck />}
-      placeholder="Transaction Statuses"
+      placeholder="Status"
       filteredItems={transactionStatuses}
       onFilterChange={onFilterChange}
     />

@@ -40,7 +40,7 @@ export const TransactionTypeFilter = () => {
     <FilterDropdown<TransactionType>
       items={TRANSACTION_TYPES}
       icon={<Building2 />}
-      placeholder="Transaction Types"
+      placeholder="Type"
       filteredItems={transactionTypes}
       onFilterChange={onFilterChange}
     />
