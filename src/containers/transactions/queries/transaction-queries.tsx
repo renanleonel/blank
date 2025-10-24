@@ -1,31 +1,35 @@
 import {
-  ListUsersParams,
-  ListUsersQueryResult,
-  listUsersQueryResultSchema,
-  UserApiResponse,
-} from '@/containers/users/domain/schemas/user';
-import { UserRepository } from '@/containers/users/repositories/user';
+  ListTransactionsParams,
+  ListTransactionsQueryResult,
+  TransactionApiResponse,
+  listTransactionsQueryResultSchema,
+} from '@/containers/transactions/domain/schemas/transaction';
+import { TransactionRepository } from '@/containers/transactions/repositories/transaction';
 import type { UseInfiniteQueryOptions } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 
-type ListUsersProps = {
-  params: ListUsersParams;
+type ListTransactionsProps = {
+  params: ListTransactionsParams;
   options?: Omit<
-    UseInfiniteQueryOptions<UserApiResponse, AxiosError, ListUsersQueryResult>,
+    UseInfiniteQueryOptions<
+      TransactionApiResponse,
+      AxiosError,
+      ListTransactionsQueryResult
+    >,
     'queryKey' | 'queryFn' | 'getNextPageParam' | 'initialPageParam'
   >;
 };
 
-export const LIST_USERS_QUERY_KEY = 'list-infinite-users';
+export const LIST_TRANSACTIONS_QUERY_KEY = 'list-infinite-transactions';
 
-function useListUsers({ params, options }: ListUsersProps) {
-  const queryKey = [LIST_USERS_QUERY_KEY, params];
+function useListTransactions({ params, options }: ListTransactionsProps) {
+  const queryKey = [LIST_TRANSACTIONS_QUERY_KEY, params];
 
   const query = useInfiniteQuery<
-    UserApiResponse,
+    TransactionApiResponse,
     AxiosError,
-    ListUsersQueryResult
+    ListTransactionsQueryResult
   >({
     queryKey,
     queryFn: async ({ pageParam = 0 }) => {
@@ -33,7 +37,7 @@ function useListUsers({ params, options }: ListUsersProps) {
 
       const start = (pageParam as number) * fetchSize;
 
-      const response = await UserRepository.listUsers({
+      const response = await TransactionRepository.listTransactions({
         start,
         fetchSize,
         ...rest,
@@ -57,7 +61,7 @@ function useListUsers({ params, options }: ListUsersProps) {
       };
 
       const parsedResponse =
-        listUsersQueryResultSchema.parse(formattedResponse);
+        listTransactionsQueryResultSchema.parse(formattedResponse);
 
       return parsedResponse;
     },
@@ -70,4 +74,4 @@ function useListUsers({ params, options }: ListUsersProps) {
   return query;
 }
 
-export { useListUsers };
+export { useListTransactions };

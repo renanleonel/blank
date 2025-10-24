@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { copyToClipboard } from '@/containers/users/utils/copy-to-clipboard';
+import { copyToClipboard } from '@/containers/transactions/utils/copy-to-clipboard';
 import { Check, Copy } from 'lucide-react';
 import { useState } from 'react';
 

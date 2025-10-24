@@ -1,8 +1,8 @@
-import { AccountTypeFilter } from '@/components/filters/presets/account-type';
-import { StatusFilter } from '@/components/filters/presets/status';
-import { TeamFilter } from '@/components/filters/presets/team';
+import { TransactionGatewayFilter } from '@/components/filters/presets/transaction-gateway';
+import { TransactionStatusFilter } from '@/components/filters/presets/transaction-statuses';
+import { TransactionTypeFilter } from '@/components/filters/presets/transaction-type';
 import { Button } from '@/components/ui/button';
-import { usersTableSearchSchema } from '@/lib/schemas/validate-search/users-table';
+import { transactionsTableSearchSchema } from '@/lib/schemas/validate-search/transactions-table';
 import { useRouter, useSearch } from '@tanstack/react-router';
 import { useMemo } from 'react';
 
@@ -11,7 +11,7 @@ export const FilterToolbar = () => {
   const filters = useSearch({ from: '/_app/table/' });
 
   const validFilters = useMemo(
-    () => usersTableSearchSchema.parse(filters),
+    () => transactionsTableSearchSchema.parse(filters),
     [filters]
   );
   const hasFilters = useMemo(
@@ -32,9 +32,9 @@ export const FilterToolbar = () => {
   return (
     <div className="flex items-center gap-2 justify-between">
       <div className="flex items-center gap-2">
-        <TeamFilter />
-        <AccountTypeFilter />
-        <StatusFilter />
+        <TransactionGatewayFilter />
+        <TransactionTypeFilter />
+        <TransactionStatusFilter />
       </div>
 
       {hasFilters && (

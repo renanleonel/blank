@@ -14,6 +14,8 @@ const badgeVariants = cva(
         yellow:
           'border-yellow-200 bg-yellow-100 text-yellow-500 [a&]:hover:bg-yellow-500/90',
         red: 'border-red-200 bg-red-100 text-red-500 [a&]:hover:bg-red-500/90',
+        orange:
+          'border-orange-200 bg-orange-100 text-orange-500 [a&]:hover:bg-orange-500/90',
         default:
           'border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90',
         secondary:
