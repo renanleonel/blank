@@ -50,7 +50,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('timestamp', {
       header: COLUMN_LABELS.TIMESTAMP,
       size: 1,
-      minSize: 150,
+      minSize: 50,
       cell: info => {
         if (isLoading) return <Skeleton />;
 
@@ -65,7 +65,7 @@ export function useTableColumns({ isLoading }: HookProps) {
         });
 
         return (
-          <div className="flex items-center justify-between gap-2 min-w-0">
+          <div className="flex items-center justify-between gap-2 min-w-0 w-full">
             <span className="truncate flex-1">{formattedValue}</span>
             <ClipboardButton value={value.toString()} />
           </div>
@@ -75,7 +75,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('type', {
       header: COLUMN_LABELS.TYPE,
       size: 1,
-      minSize: 120,
+      minSize: 50,
       cell: info => {
         if (isLoading) return <Skeleton />;
 
@@ -92,7 +92,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('gateway', {
       header: COLUMN_LABELS.GATEWAY,
       size: 1.2,
-      minSize: 130,
+      minSize: 50,
       cell: info => {
         if (isLoading) return <Skeleton />;
 
@@ -109,7 +109,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('currency', {
       header: COLUMN_LABELS.CURRENCY,
       size: 1.2,
-      minSize: 100,
+      minSize: 50,
       cell: info => {
         if (isLoading) return <Skeleton />;
         return <span className="truncate block">{info.getValue()}</span>;
@@ -118,7 +118,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('amount', {
       header: COLUMN_LABELS.AMOUNT,
       size: 1.2,
-      minSize: 130,
+      minSize: 50,
       cell: info => {
         if (isLoading) return <Skeleton />;
 
@@ -135,7 +135,7 @@ export function useTableColumns({ isLoading }: HookProps) {
         }).format(amountInDollars);
 
         return (
-          <div className="flex items-center justify-between gap-2 min-w-0">
+          <div className="flex items-center justify-between gap-2 min-w-0 w-full">
             <span className="truncate flex-1">{formattedAmount}</span>
             <ClipboardButton value={formattedAmount} />
           </div>
@@ -145,7 +145,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('from', {
       header: COLUMN_LABELS.FROM,
       size: 1,
-      minSize: 100,
+      minSize: 50,
       cell: info => {
         if (isLoading) return <Skeleton />;
         return <span className="truncate block">{info.getValue()}</span>;
@@ -154,7 +154,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('to', {
       header: COLUMN_LABELS.TO,
       size: 2,
-      minSize: 150,
+      minSize: 50,
       cell: info => {
         if (isLoading) return <Skeleton />;
         return <span className="truncate block">{info.getValue()}</span>;
@@ -163,7 +163,7 @@ export function useTableColumns({ isLoading }: HookProps) {
     columnHelper.accessor('status', {
       header: COLUMN_LABELS.STATUS,
       size: 0.8,
-      minSize: 100,
+      minSize: 50,
       cell: info => {
         if (isLoading) return <Skeleton />;
 

@@ -112,46 +112,48 @@ export function VirtualizedTable<T>({
 
   return (
     <div className="rounded-lg border border-gray-200 h-full flex flex-col w-full">
-      <div className="bg-gray-50 border-b border-gray-200">
-        <table className="w-full grid">
-          <thead className="grid w-full">
-            {table.getHeaderGroups().map(headerGroup => (
-              <tr
-                key={headerGroup.id}
-                className="flex w-full bg-gray-50 select-none"
-              >
-                {headerGroup.headers.map((header, index) => (
-                  <th
-                    key={header.id}
-                    className={cn(
-                      'py-2 flex text-left text-xs font-medium text-gray-500 tracking-wider',
-                      index === headerGroup.headers.length - 1 ? 'px-0' : 'px-4'
-                    )}
-                    style={{
-                      minWidth: header.column.columnDef.minSize,
-                      maxWidth: header.column.columnDef.maxSize,
-                      width: `${(header.getSize() / table.getTotalSize()) * 100}%`,
-                    }}
-                  >
-                    <div>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-        </table>
-      </div>
-
       <div
         className="flex-1 overflow-auto h-[600px]"
         onScroll={e => fetchMoreOnBottomReached(e.currentTarget)}
         ref={tableContainerRef}
       >
+        <div className="sticky top-0 bg-gray-50 border-b border-gray-200 z-10">
+          <table className="w-full grid">
+            <thead className="grid w-full">
+              {table.getHeaderGroups().map(headerGroup => (
+                <tr
+                  key={headerGroup.id}
+                  className="flex w-full bg-gray-50 select-none"
+                >
+                  {headerGroup.headers.map((header, index) => (
+                    <th
+                      key={header.id}
+                      className={cn(
+                        'py-2 flex text-left text-xs font-medium text-gray-500 tracking-wider',
+                        index === headerGroup.headers.length - 1
+                          ? 'px-0'
+                          : 'px-4'
+                      )}
+                      style={{
+                        minWidth: header.column.columnDef.minSize,
+                        maxWidth: header.column.columnDef.maxSize,
+                        width: `${(header.getSize() / table.getTotalSize()) * 100}%`,
+                      }}
+                    >
+                      <div>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+          </table>
+        </div>
+
         <table className="w-full grid">
           <tbody
             className="grid relative w-full"

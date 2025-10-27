@@ -24,7 +24,7 @@ export const ClipboardButton = ({ value }: ClipboardButtonProps) => {
   return (
     <Button
       variant="ghost"
-      className="!p-2 h-fit cursor-pointer"
+      className="!p-1 h-fit cursor-pointer"
       onClick={() => handleCopyToClipboard(value)}
       title={isCopied ? 'Copied!' : 'Copy phone number'}
     >
