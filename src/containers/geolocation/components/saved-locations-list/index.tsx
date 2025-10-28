@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { SavedLocation } from '@/containers/geolocation/domain/schemas/location';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { X } from 'lucide-react';
+import { useRef } from 'react';
 
 type LocationCardProps = {
   location: SavedLocation;
@@ -15,7 +17,7 @@ const LocationCard = (props: LocationCardProps) => {
     <div
       role="button"
       tabIndex={0}
-      className="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex-[1_1_calc(50%-0.25rem)] min-w-[200px]"
+      className="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors w-full"
       onClick={() => onClick?.(location)}
     >
       <div className="flex items-start justify-between">
@@ -52,21 +54,42 @@ export const SavedLocationsList = ({
   onDelete,
   onLocationClick,
 }: SavedLocationsListProps) => {
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const virtualizer = useVirtualizer({
+    count: locations.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 80,
+    overscan: 5,
+  });
+
   if (locations.length === 0) return null;
 
   return (
-    <div className="mb-6">
+    <div className="flex flex-col h-full">
       <h2 className="text-lg font-semibold mb-3">Saved Locations</h2>
 
-      <div className="flex flex-wrap gap-2">
-        {locations.map(location => (
-          <LocationCard
-            key={location.id}
-            location={location}
-            onDelete={onDelete}
-            onClick={onLocationClick}
-          />
-        ))}
+      <div ref={parentRef} className="overflow-auto flex-1 min-h-0">
+        <div
+          className="w-full relative"
+          style={{ height: `${virtualizer.getTotalSize()}px` }}
+        >
+          {virtualizer.getVirtualItems().map(virtualRow => (
+            <div
+              key={virtualRow.key}
+              className="absolute top-0 left-0 w-full"
+              style={{ transform: `translateY(${virtualRow.start}px)` }}
+            >
+              <div className="pr-1 pb-2">
+                <LocationCard
+                  location={locations[virtualRow.index]}
+                  onDelete={onDelete}
+                  onClick={onLocationClick}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

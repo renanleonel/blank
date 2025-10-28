@@ -43,8 +43,8 @@ export const Geolocation = () => {
       <ResizablePanelGroup direction="horizontal" className="h-full">
         <ResizablePanel defaultSize={33} minSize={25} maxSize={50}>
           <div className="h-full border-r border-gray-200 flex flex-col">
-            <div className="p-6 overflow-y-auto flex-1">
-              {selectedLocation ? (
+            {selectedLocation ? (
+              <div className="p-6">
                 <LocationProperties
                   locationName={locationName}
                   onSave={handleSaveLocation}
@@ -52,8 +52,10 @@ export const Geolocation = () => {
                   selectedLocation={selectedLocation}
                   onLocationNameChange={setLocationName}
                 />
-              ) : null}
+              </div>
+            ) : null}
 
+            <div className="px-6 flex-1 min-h-0">
               <SavedLocationsList
                 locations={savedLocations}
                 onDelete={deleteLocation}
