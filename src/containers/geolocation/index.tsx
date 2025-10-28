@@ -5,7 +5,7 @@ import { useGeolocation } from '@/containers/geolocation/hooks/use-geolocation';
 import { useMapSelection } from '@/containers/geolocation/hooks/use-map-selection';
 import { useSavedLocations } from '@/containers/geolocation/hooks/use-saved-locations';
 
-export const GeolocationPage = () => {
+export const Geolocation = () => {
   const { center, isRequestingLocation } = useGeolocation();
 
   const {
