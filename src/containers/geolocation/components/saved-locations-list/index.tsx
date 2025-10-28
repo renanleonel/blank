@@ -15,7 +15,7 @@ const LocationCard = (props: LocationCardProps) => {
     <div
       role="button"
       tabIndex={0}
-      className="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+      className="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors flex-[1_1_calc(50%-0.25rem)] min-w-[200px]"
       onClick={() => onClick?.(location)}
     >
       <div className="flex items-start justify-between">
@@ -58,7 +58,7 @@ export const SavedLocationsList = ({
     <div className="mb-6">
       <h2 className="text-lg font-semibold mb-3">Saved Locations</h2>
 
-      <div className="space-y-2">
+      <div className="flex flex-wrap gap-2">
         {locations.map(location => (
           <LocationCard
             key={location.id}

@@ -1,3 +1,8 @@
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable';
 import { LocationProperties } from '@/containers/geolocation/components/location-properties';
 import { MapView } from '@/containers/geolocation/components/map-view';
 import { SavedLocationsList } from '@/containers/geolocation/components/saved-locations-list';
@@ -34,40 +39,46 @@ export const Geolocation = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-white">
-      <div className="flex-1 flex overflow-hidden">
-        <div className="w-1/3 border-r border-gray-200 flex flex-col">
-          <div className="p-6 overflow-y-auto flex-1">
-            {selectedLocation ? (
-              <LocationProperties
-                locationName={locationName}
-                onSave={handleSaveLocation}
-                onCancel={handleClearSelection}
-                selectedLocation={selectedLocation}
-                onLocationNameChange={setLocationName}
-              />
-            ) : null}
+    <div className="w-full h-full bg-white">
+      <ResizablePanelGroup direction="horizontal" className="h-full">
+        <ResizablePanel defaultSize={33} minSize={25} maxSize={50}>
+          <div className="h-full border-r border-gray-200 flex flex-col">
+            <div className="p-6 overflow-y-auto flex-1">
+              {selectedLocation ? (
+                <LocationProperties
+                  locationName={locationName}
+                  onSave={handleSaveLocation}
+                  onCancel={handleClearSelection}
+                  selectedLocation={selectedLocation}
+                  onLocationNameChange={setLocationName}
+                />
+              ) : null}
 
-            <SavedLocationsList
-              locations={savedLocations}
-              onDelete={deleteLocation}
-              onLocationClick={handleLocationClick}
+              <SavedLocationsList
+                locations={savedLocations}
+                onDelete={deleteLocation}
+                onLocationClick={handleLocationClick}
+              />
+            </div>
+          </div>
+        </ResizablePanel>
+
+        <ResizableHandle />
+
+        <ResizablePanel defaultSize={67}>
+          <div className="h-full flex flex-col">
+            <MapView
+              center={center}
+              onMapClick={handleMapClick}
+              savedLocations={savedLocations}
+              selectedLocation={selectedLocation}
+              isRequestingLocation={isRequestingLocation}
+              locationToFly={locationToFly}
+              onLocationFlyComplete={() => setLocationToFly(null)}
             />
           </div>
-        </div>
-
-        <div className="flex-1 flex flex-col">
-          <MapView
-            center={center}
-            onMapClick={handleMapClick}
-            savedLocations={savedLocations}
-            selectedLocation={selectedLocation}
-            isRequestingLocation={isRequestingLocation}
-            locationToFly={locationToFly}
-            onLocationFlyComplete={() => setLocationToFly(null)}
-          />
-        </div>
-      </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   );
 };
