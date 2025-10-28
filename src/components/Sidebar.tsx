@@ -18,7 +18,7 @@ type SidebarProps = {
   className?: string;
 };
 
-export function Sidebar({ items, footerItems, className }: SidebarProps) {
+export const Sidebar = ({ items, footerItems, className }: SidebarProps) => {
   const { pathname } = useLocation();
 
   return (
@@ -94,4 +94,4 @@ export function Sidebar({ items, footerItems, className }: SidebarProps) {
       </SidebarContent>
     </SidebarComponent>
   );
-}
+};

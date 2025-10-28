@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 
 const FETCH_SIZE = 50;
 
-export function TransactionsTable() {
+export const TransactionsTable = () => {
   const filters = useSearch({ from: '/_app/table/' });
 
   const validFilters = useMemo(
@@ -45,4 +45,4 @@ export function TransactionsTable() {
       </div>
     </div>
   );
-}
+};

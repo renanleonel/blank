@@ -15,7 +15,7 @@ type TableActionsProps = {
   actions: Action[];
 };
 
-export function TableActions({ actions }: TableActionsProps) {
+export const TableActions = ({ actions }: TableActionsProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -34,4 +34,4 @@ export function TableActions({ actions }: TableActionsProps) {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
