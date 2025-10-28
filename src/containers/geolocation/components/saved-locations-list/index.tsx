@@ -5,11 +5,19 @@ import { X } from 'lucide-react';
 type LocationCardProps = {
   location: SavedLocation;
   onDelete?: (id: string) => void;
+  onClick?: (location: SavedLocation) => void;
 };
 
-const LocationCard = ({ location, onDelete }: LocationCardProps) => {
+const LocationCard = (props: LocationCardProps) => {
+  const { location, onDelete, onClick } = props;
+
   return (
-    <div className="border border-gray-200 rounded-lg p-3">
+    <div
+      role="button"
+      tabIndex={0}
+      className="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+      onClick={() => onClick?.(location)}
+    >
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <p className="font-medium text-gray-900">{location.name}</p>
@@ -21,7 +29,10 @@ const LocationCard = ({ location, onDelete }: LocationCardProps) => {
           size="icon"
           variant="ghost"
           className="h-6 w-6 cursor-pointer"
-          onClick={() => onDelete?.(location.id)}
+          onClick={e => {
+            e.stopPropagation();
+            onDelete?.(location.id);
+          }}
         >
           <X className="h-3 w-3 text-gray-400" />
         </Button>
@@ -33,11 +44,13 @@ const LocationCard = ({ location, onDelete }: LocationCardProps) => {
 type SavedLocationsListProps = {
   locations: SavedLocation[];
   onDelete?: (id: string) => void;
+  onLocationClick?: (location: SavedLocation) => void;
 };
 
 export const SavedLocationsList = ({
   locations,
   onDelete,
+  onLocationClick,
 }: SavedLocationsListProps) => {
   if (locations.length === 0) return null;
 
@@ -51,6 +64,7 @@ export const SavedLocationsList = ({
             key={location.id}
             location={location}
             onDelete={onDelete}
+            onClick={onLocationClick}
           />
         ))}
       </div>

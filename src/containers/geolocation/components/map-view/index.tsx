@@ -9,6 +9,7 @@ import {
   Marker,
   Popup,
   TileLayer,
+  useMap,
   useMapEvents,
 } from 'react-leaflet';
 
@@ -22,21 +23,46 @@ const MapClickHandler = ({ onMapClick }: MapClickHandlerProps) => {
   return null;
 };
 
+type FlyToLocationProps = {
+  location: [number, number] | null;
+  onComplete: () => void;
+};
+
+const FlyToLocation = (props: FlyToLocationProps) => {
+  const { location, onComplete } = props;
+
+  const map = useMap();
+
+  if (!location) return;
+
+  map.flyTo(location, 15, { duration: 1.5 });
+
+  setTimeout(() => onComplete(), 1000);
+
+  return null;
+};
+
 type MapViewProps = {
   center: [number, number];
   isRequestingLocation: boolean;
   selectedLocation: LatLng | null;
   savedLocations: SavedLocation[];
   onMapClick: (latlng: LatLng) => void;
+  locationToFly?: [number, number] | null;
+  onLocationFlyComplete?: () => void;
 };
 
-export function MapView({
-  center,
-  isRequestingLocation,
-  selectedLocation,
-  savedLocations,
-  onMapClick,
-}: MapViewProps) {
+export function MapView(props: MapViewProps) {
+  const {
+    center,
+    isRequestingLocation,
+    selectedLocation,
+    savedLocations,
+    onMapClick,
+    locationToFly,
+    onLocationFlyComplete,
+  } = props;
+
   if (isRequestingLocation) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -54,6 +80,11 @@ export function MapView({
         />
 
         <MapClickHandler onMapClick={onMapClick} />
+
+        <FlyToLocation
+          location={locationToFly || null}
+          onComplete={() => onLocationFlyComplete?.()}
+        />
 
         {selectedLocation && (
           <Marker

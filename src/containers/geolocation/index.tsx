@@ -1,9 +1,11 @@
 import { LocationProperties } from '@/containers/geolocation/components/location-properties';
 import { MapView } from '@/containers/geolocation/components/map-view';
 import { SavedLocationsList } from '@/containers/geolocation/components/saved-locations-list';
+import type { SavedLocation } from '@/containers/geolocation/domain/schemas/location';
 import { useGeolocation } from '@/containers/geolocation/hooks/use-geolocation';
 import { useMapSelection } from '@/containers/geolocation/hooks/use-map-selection';
 import { useSavedLocations } from '@/containers/geolocation/hooks/use-saved-locations';
+import { useState } from 'react';
 
 export const Geolocation = () => {
   const { center, isRequestingLocation } = useGeolocation();
@@ -17,11 +19,18 @@ export const Geolocation = () => {
   } = useMapSelection();
 
   const { savedLocations, saveLocation, deleteLocation } = useSavedLocations();
+  const [locationToFly, setLocationToFly] = useState<[number, number] | null>(
+    null
+  );
 
   const handleSaveLocation = () => {
     if (!selectedLocation) return;
     saveLocation(selectedLocation, locationName);
     handleClearSelection();
+  };
+
+  const handleLocationClick = (location: SavedLocation) => {
+    setLocationToFly(location.position);
   };
 
   return (
@@ -42,6 +51,7 @@ export const Geolocation = () => {
             <SavedLocationsList
               locations={savedLocations}
               onDelete={deleteLocation}
+              onLocationClick={handleLocationClick}
             />
           </div>
         </div>
@@ -53,6 +63,8 @@ export const Geolocation = () => {
             savedLocations={savedLocations}
             selectedLocation={selectedLocation}
             isRequestingLocation={isRequestingLocation}
+            locationToFly={locationToFly}
+            onLocationFlyComplete={() => setLocationToFly(null)}
           />
         </div>
       </div>
