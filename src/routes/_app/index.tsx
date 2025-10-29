@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { Table } from 'lucide-react';
+import { MapPin, Table } from 'lucide-react';
 
 type RouteCard = {
   title: string;
@@ -26,6 +26,13 @@ const ROUTE_CARDS: RouteCard[] = [
     icon: Table,
     href: '/table',
     color: 'bg-blue-500',
+  },
+  {
+    title: 'Geolocation',
+    description: 'A geolocation map using Leaflet and React Leaflet',
+    icon: MapPin,
+    href: '/geolocation',
+    color: 'bg-green-500',
   },
 ];
 
