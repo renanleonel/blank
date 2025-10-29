@@ -19,7 +19,7 @@ const PropertyItem = ({ label, value, icon, hasLink }: PropertyItemProps) => {
       </div>
 
       <div className="flex items-center gap-1">
-        <span className="font-medium">{value}</span>
+        <span className="font-mono text-xs">{value}</span>
         {hasLink && <LinkIcon className="h-3 w-3 text-gray-400" />}
       </div>
     </div>
@@ -74,9 +74,9 @@ export const LocationProperties = (props: LocationPropertiesProps) => {
       <div className="space-y-2 mb-6">
         <Button
           onClick={onSave}
-          className="w-full bg-blue-600 hover:bg-blue-700 cursor-pointer"
+          className="w-full bg-blue-600 hover:bg-blue-700 cursor-pointer gap-1"
         >
-          <Plus className="h-4 w-4 mr-2" />
+          <Plus className="h-4 w-4" />
           Save Location
         </Button>
         <Button
