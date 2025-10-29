@@ -1,30 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PropertyItem } from '@/containers/geolocation/components/location-properties/property-item';
 import type { LatLng } from 'leaflet';
-import { Link as LinkIcon, Plus } from 'lucide-react';
-
-type PropertyItemProps = {
-  label: string;
-  value: string;
-  icon?: React.ReactNode;
-  hasLink?: boolean;
-};
-
-const PropertyItem = ({ label, value, icon, hasLink }: PropertyItemProps) => {
-  return (
-    <div className="flex items-start justify-between text-sm">
-      <div className="flex items-center gap-2 text-gray-600">
-        <span className="font-mono text-xs">{label}</span>
-        {icon}
-      </div>
-
-      <div className="flex items-center gap-1">
-        <span className="font-mono text-xs">{value}</span>
-        {hasLink && <LinkIcon className="h-3 w-3 text-gray-400" />}
-      </div>
-    </div>
-  );
-};
+import { Plus } from 'lucide-react';
 
 type LocationPropertiesProps = {
   selectedLocation: LatLng;
