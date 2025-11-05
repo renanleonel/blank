@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { MapPin, Table } from 'lucide-react';
+import { BarChart3, MapPin, Table } from 'lucide-react';
 
 type RouteCard = {
   title: string;
@@ -19,6 +19,13 @@ type RouteCard = {
 };
 
 const ROUTE_CARDS: RouteCard[] = [
+  {
+    title: 'Dashboard',
+    description: 'Analytics and data visualization using Recharts',
+    icon: BarChart3,
+    href: '/dashboard',
+    color: 'bg-purple-500',
+  },
   {
     title: 'Table',
     description:
@@ -48,7 +55,7 @@ function Index() {
   return (
     <div className="p-6 w-full h-full">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Home</h1>
         <p className="text-gray-600">Choose a section to get started</p>
       </div>
 
@@ -58,7 +65,7 @@ function Index() {
           return (
             <Card
               key={card.title}
-              className="transition-all duration-200 border-gray-200 hover:border-gray-300"
+              className="transition-all duration-200 flex flex-col justify-between border-gray-200 hover:border-gray-300"
             >
               <CardHeader className="pb-4">
                 <div

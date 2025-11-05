@@ -25,7 +25,7 @@ export const generateRandomTransaction = (id: number): Transaction => {
   const froms: string[] = [...MOCKED_NAMES];
   const tos: string[] = [...MOCKED_NAMES];
 
-  const amounts: number[] = [Math.floor(Math.random() * 1000000)];
+  const amounts: number[] = [Math.floor(Math.random() * 1000000) + 1];
 
   const randomDate = () => {
     const start = new Date(2020, 0, 1);
