@@ -1,73 +1,140 @@
-# React + TypeScript + Vite
+# Transaction Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application for managing and visualizing transactions with interactive charts and table filtering capabilities.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 📊 Dashboard
 
-## React Compiler
+- Interactive area charts using Recharts
+- Revenue visualization by currency (USD, EUR, BRL, BTC, ETH)
+- Period-based data filtering
+- Real-time data updates
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+### 📋 Transactions Table
 
-## Expanding the ESLint configuration
+- Virtualized table using TanStack Table and TanStack Virtual for optimal performance
+- Filtering system with multiple presets:
+  - Transaction status
+  - Transaction type
+  - Currency
+  - Payment gateway
+- URL-based filter state management
+- Copy-to-clipboard functionality
+- Skeleton loading states
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🗺️ Geolocation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Interactive map using Leaflet and React Leaflet
+- Click-to-select locations on the map
+- Save and manage favorite locations
+- Location properties display (coordinates, address)
+- Browser geolocation API integration
+- Resizable panel layout
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### Core
+
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** (Rolldown) - Build tool and dev server
+
+### Routing & State Management
+
+- **TanStack Router** - Type-safe routing with file-based routing
+- **TanStack Query** - Server state management and data fetching
+
+### UI Components
+
+- **Radix UI** - Accessible component primitives
+- **Tailwind CSS** - Utility-first CSS framework
+- **Lucide React** - Icon library
+- **Recharts** - Chart library
+- **React Resizable Panels** - Resizable layout components
+
+### Data & Tables
+
+- **TanStack Table** - Headless table library
+- **TanStack Virtual** - Virtual scrolling for performance
+- **Axios** - HTTP client
+- **Zod** - Schema validation
+
+### Maps
+
+- **Leaflet** - Interactive maps
+- **React Leaflet** - React bindings for Leaflet
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- pnpm (recommended) or npm/yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd blank
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+pnpm install
 ```
+
+3. Start the development server:
+
+```bash
+pnpm dev
+```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+## Available Scripts
+
+- `pnpm dev` - Start the development server
+- `pnpm build` - Build the application for production
+- `pnpm preview` - Preview the production build locally
+- `pnpm lint` - Run ESLint to check for code issues
+- `pnpm format` - Format code using Prettier
+- `pnpm format:check` - Check code formatting without making changes
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── filters/        # Filter components and presets
+│   ├── table/          # Table components
+│   └── ui/             # Base UI components (Radix UI wrappers)
+├── containers/         # Feature-based containers
+│   ├── dashboard/      # Dashboard with charts
+│   ├── transactions/   # Transactions table and logic
+│   └── geolocation/    # Map and location management
+├── hooks/              # Custom React hooks
+├── lib/                # Utilities and constants
+├── routes/             # TanStack Router file-based routes
+└── main.tsx           # Application entry point
+```
+
+## Key Technologies
+
+- **File-based Routing**: Routes are automatically generated from the `routes/` directory
+- **Type-safe Routing**: Full TypeScript support for routes and search params
+- **Virtual Scrolling**: Efficient rendering of large datasets
+- **Query Caching**: Automatic caching and background updates with TanStack Query
+- **Schema Validation**: Zod schemas for runtime type checking
+
+## Development
+
+The project uses:
+
+- **ESLint** for code linting
+- **Prettier** for code formatting
+- **TypeScript** for type checking
+- **SWC** for fast compilation
