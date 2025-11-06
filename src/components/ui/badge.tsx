@@ -50,4 +50,4 @@ function Badge({
   );
 }
 
-export { Badge, badgeVariants };
+export { Badge, badgeVariants }; // eslint-disable-line react-refresh/only-export-components

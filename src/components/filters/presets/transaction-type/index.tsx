@@ -15,8 +15,10 @@ const TRANSACTION_TYPES = [
 
 import { FilterDropdown } from '@/components/filters/dropdown';
 import { TransactionType } from '@/containers/transactions/domain/enums/transaction';
+import { transactionsTableSearchSchema } from '@/lib/schemas/validate-search/transactions-table';
 import { useRouter, useSearch } from '@tanstack/react-router';
 import { Building2 } from 'lucide-react';
+import { z } from 'zod';
 
 export const TransactionTypeFilter = () => {
   const router = useRouter();
@@ -28,7 +30,7 @@ export const TransactionTypeFilter = () => {
     router.navigate({
       to: '/table',
       replace: true,
-      search: prev => ({
+      search: (prev: z.infer<typeof transactionsTableSearchSchema>) => ({
         ...prev,
         transactionTypes: transactionTypes.length
           ? transactionTypes

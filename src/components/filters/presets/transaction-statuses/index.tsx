@@ -19,8 +19,10 @@ const TRANSACTION_STATUSES = [
 
 import { FilterDropdown } from '@/components/filters/dropdown';
 import { TransactionStatus } from '@/containers/transactions/domain/enums/transaction';
+import { transactionsTableSearchSchema } from '@/lib/schemas/validate-search/transactions-table';
 import { useRouter, useSearch } from '@tanstack/react-router';
 import { CircleCheck } from 'lucide-react';
+import { z } from 'zod';
 
 export const TransactionStatusFilter = () => {
   const router = useRouter();
@@ -32,7 +34,7 @@ export const TransactionStatusFilter = () => {
     router.navigate({
       to: '/table',
       replace: true,
-      search: prev => ({
+      search: (prev: z.infer<typeof transactionsTableSearchSchema>) => ({
         ...prev,
         transactionStatuses: transactionStatuses.length
           ? transactionStatuses

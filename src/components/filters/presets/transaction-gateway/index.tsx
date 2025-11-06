@@ -1,7 +1,9 @@
 import { FilterDropdown } from '@/components/filters/dropdown';
 import { TransactionGateway } from '@/containers/transactions/domain/enums/transaction';
+import { transactionsTableSearchSchema } from '@/lib/schemas/validate-search/transactions-table';
 import { useRouter, useSearch } from '@tanstack/react-router';
 import { CreditCard } from 'lucide-react';
+import { z } from 'zod';
 
 const TRANSACTION_GATEWAYS = [
   {
@@ -28,7 +30,7 @@ export const TransactionGatewayFilter = () => {
     router.navigate({
       to: '/table',
       replace: true,
-      search: prev => ({
+      search: (prev: z.infer<typeof transactionsTableSearchSchema>) => ({
         ...prev,
         transactionGateways: transactionGateways.length
           ? transactionGateways
