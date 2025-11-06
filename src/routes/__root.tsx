@@ -5,6 +5,7 @@ import { Sidebar } from '@/components/sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { QUERY_CLIENT } from '@/lib/constants/query-client';
 import { SIDEBAR_FOOTER, SIDEBAR_ITEMS } from '@/lib/constants/sidebar-items';
+import { Analytics } from '@vercel/analytics/react';
 
 const RootLayout = () => (
   <QueryClientProvider client={QUERY_CLIENT}>
@@ -26,6 +27,8 @@ const RootLayout = () => (
         {/* <ToggleSidebar /> */}
       </div>
     </SidebarProvider>
+
+    <Analytics />
   </QueryClientProvider>
 );
 
