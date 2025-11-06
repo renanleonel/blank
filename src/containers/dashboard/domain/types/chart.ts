@@ -9,4 +9,3 @@ export type ChartDataPoint = {
 } & RevenueByCurrency;
 
 export type RevenueByDateAndCurrency = Record<string, ChartDataPoint>;
-

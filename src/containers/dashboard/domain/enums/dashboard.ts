@@ -4,4 +4,3 @@ export enum TimeRange {
   LAST_30_DAYS = '30d',
   LAST_7_DAYS = '7d',
 }
-
