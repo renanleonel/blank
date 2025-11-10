@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { BarChart3, MapPin, Table } from 'lucide-react';
 
 type RouteCard = {
@@ -48,10 +48,6 @@ export const Route = createFileRoute('/_app/')({
 });
 
 function Index() {
-  const navigate = useNavigate();
-
-  const handleCardClick = (href: string) => navigate({ to: href });
-
   return (
     <div className="p-6 w-full h-full">
       <div className="mb-8">
@@ -85,12 +81,11 @@ function Index() {
                 <Button
                   variant="outline"
                   className="w-full cursor-pointer"
-                  onClick={e => {
-                    e.stopPropagation();
-                    handleCardClick(card.href);
-                  }}
+                  asChild
                 >
-                  Open
+                  <Link to={card.href as any}>
+                    Open
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
